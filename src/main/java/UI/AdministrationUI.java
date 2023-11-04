@@ -3,11 +3,15 @@ package UI;
 import UserManagement.Administration;
 import UserManagement.HealthCareOfficial;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
 
 public class AdministrationUI extends UserInterface{
+    AdministrationUI() throws SQLException {
+    }
+
     public void display(){
         System.out.println("Welcome to the Administration Menu");
 

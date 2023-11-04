@@ -3,6 +3,7 @@ package UI;
 import AppointmentManagement.*;
 import UserManagement.*;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -11,13 +12,13 @@ public class UserInterface {
     protected String menuType;
 
 
-    UserInterface(){
+    UserInterface() throws SQLException {
         user = new User();
         displayMainMenu();
     }
     public void close() {}
 
-    public void displayMainMenu() {
+    public void displayMainMenu() throws SQLException {
         System.out.println("**********Welcome to the AUS MediCare Application!**********");
         Scanner in = new Scanner(System.in);
         int choice;
@@ -48,7 +49,7 @@ public class UserInterface {
         }while (choice != 3 && !user.isLoggedIn());
     }
 
-    public void displayMenu(){
+    public void displayMenu() throws SQLException {
         switch (menuType) {
             case "Student" -> {
                 StudentUI studentMenu = new StudentUI();

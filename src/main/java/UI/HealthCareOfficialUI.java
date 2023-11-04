@@ -3,11 +3,15 @@ package UI;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
 
 public class HealthCareOfficialUI extends UserInterface{
+    HealthCareOfficialUI() throws SQLException {
+    }
+
     public void display(){
         System.out.println("Welcome to the Healthcare Official Menu");
 

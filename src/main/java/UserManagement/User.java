@@ -1,14 +1,18 @@
 package UserManagement;
 
-<<<<<<< Updated upstream
+import DatabaseManagement.UsersTableManager;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class User {
-
     private Account account;
     private String type;
     private boolean loggedIn;
-    public void login(){
+    public boolean login() throws SQLException {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to the Login Portal\n\n");
 
@@ -17,6 +21,10 @@ public class User {
         System.out.println("Please enter your password: ");
         String password = in.next();
         //@Shafiay: Validate credentials
+        boolean loginResult = UsersTableManager.getInstance().RecordExists(
+                new ArrayList<String>(List.of(new String[]{"user_id = 'b00087311'"})));
+        System.out.println(loginResult);
+        return loginResult;
     }
     public void register(){
         Scanner in = new Scanner(System.in);
@@ -44,19 +52,19 @@ public class User {
     public String getType() {
         return (type);
     }
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return (loggedIn);
-=======
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public abstract class User {
-    private Account account;
-    private String id;
-
+    }
+    public User(){}
     public User(ResultSet resultSet, Account account) throws SQLException {
         this.account = account;
-        this.id = resultSet.getString("id");
->>>>>>> Stashed changes
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

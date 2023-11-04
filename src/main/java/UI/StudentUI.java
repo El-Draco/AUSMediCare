@@ -1,9 +1,13 @@
 package UI;
 
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class StudentUI extends UserInterface{
+    StudentUI() throws SQLException {
+    }
+
     public void display(){
         System.out.println("Welcome to the Student Menu");
 
