@@ -1,5 +1,6 @@
 package UserManagement;
 
+<<<<<<< Updated upstream
 import java.util.Scanner;
 
 public class User {
@@ -45,5 +46,17 @@ public class User {
     }
     public boolean isLoggedIn(){
         return (loggedIn);
+=======
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public abstract class User {
+    private Account account;
+    private String id;
+
+    public User(ResultSet resultSet, Account account) throws SQLException {
+        this.account = account;
+        this.id = resultSet.getString("id");
+>>>>>>> Stashed changes
     }
 }
