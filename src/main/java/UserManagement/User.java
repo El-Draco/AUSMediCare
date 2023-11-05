@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class User {
     private Account account;
-    private String type;
     private boolean loggedIn;
     public boolean login() throws SQLException {
         Scanner in = new Scanner(System.in);
@@ -49,13 +48,16 @@ public class User {
         Account newAccount = new Account(username, password);
         //@Shafiay add account to database
     }
-    public String getType() {
-        return (type);
-    }
+
     public boolean isLoggedIn() {
         return (loggedIn);
     }
-    public User(){}
+
+    public User(Account account, boolean loggedIn) {
+        this.account = account;
+        this.loggedIn = loggedIn;
+    }
+
     public User(ResultSet resultSet, Account account) throws SQLException {
         this.account = account;
     }

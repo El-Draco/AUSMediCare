@@ -6,4 +6,7 @@ public class HealthCareOfficial extends User implements AccessStudentProfile{
     public HealthCareOfficial(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);
     }
+    public HealthCareOfficial(Account account, boolean loggedIn) {
+        super(account, loggedIn);
+    }
 }
