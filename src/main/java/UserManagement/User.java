@@ -11,6 +11,10 @@ import java.util.Scanner;
 public class User {
     private Account account;
     private boolean loggedIn;
+
+
+    public User() {
+    }
     public boolean login() throws SQLException {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to the Login Portal\n\n");
@@ -25,7 +29,7 @@ public class User {
         System.out.println(loginResult);
         return loginResult;
     }
-    public void register(){
+    public static void register(){
         Scanner in = new Scanner(System.in);
 
         System.out.println("Welcome to the Registration Portal\n\n");
@@ -46,7 +50,9 @@ public class User {
         System.out.println("Please enter your password: ");
         String password = in.next();
         Account newAccount = new Account(username, password);
-        //@Shafiay add account to database
+
+        //@TODO:
+        // Add account to database
     }
 
     public boolean isLoggedIn() {
