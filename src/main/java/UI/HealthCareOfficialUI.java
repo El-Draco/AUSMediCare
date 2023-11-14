@@ -9,6 +9,7 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class HealthCareOfficialUI extends UserInterface{
+    HealthCareOfficial healthCareOfficial;
     HealthCareOfficialUI() throws SQLException {
     }
 
@@ -35,27 +36,32 @@ public class HealthCareOfficialUI extends UserInterface{
             switch (choice) {
                 case 1:
                     if (user instanceof HealthCareOfficial) {
-                        HealthCareOfficial healthcareOfficial = (HealthCareOfficial) user;
-                        healthcareOfficial.accessStudentProfile();
+                        healthCareOfficial = (HealthCareOfficial) user;
+                        healthCareOfficial.accessStudentProfile();
                     } else {
                         System.out.println("Error! Invalid Permissions");
                         exit(0);
                     }
                     break;
                 case 2:
-                    // Implement logic for managing sick leave requests
+                    // Manage Sick Leave Requests:
+                    healthCareOfficial.manageSickLeaveRequests();
                     break;
                 case 3:
-                    // Implement logic for managing referral requests
+                    // Manage Referral Requests:
+                    healthCareOfficial.manageReferralRequests();
                     break;
                 case 4:
-                    // Implement logic for managing appointments
+                    // Manage Appointments
+                    healthCareOfficial.manageAppointments();
                     break;
                 case 5:
-                    // Implement logic for managing prescription refill requests
+                    // Manage Prescription Refill Requests
+                    healthCareOfficial.managePrescriptionRefillRequests();
                     break;
                 case 6:
-                    // Implement logic for accessing emergency contact information
+                    // Access Emergency Contact Information
+                    displayEmergencyServices();
                     break;
                 case 7:
                     System.out.println("Exiting Healthcare Official Menu.");

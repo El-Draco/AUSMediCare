@@ -40,13 +40,14 @@ public class AdministrationUI extends UserInterface{
                     }
                     break;
                 case 2:
-                    // Implement Manage Requests
+                    // Implement Manage Requests - out of scope
                     break;
                 case 3:
-                    // Implement Manage Appointments
+                    // Implement Manage Appointments - out of scope
                     break;
                 case 4:
                     // Implement Access Emergency Contact Information
+                    displayEmergencyServices();
                     break;
                 case 5:
                     System.out.println("Exiting Administration Menu...");

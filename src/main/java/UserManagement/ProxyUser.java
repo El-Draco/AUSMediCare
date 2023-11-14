@@ -20,8 +20,8 @@ public class ProxyUser extends User {
         //2. Decide whether we want to use the resultSet to provide to
         //  the constructors. if so, retrieve that and pass along...
 
-//        ResultSet resultSet = new ResultSet();
-//        Account account = new Account();
+//        ResultSet resultSet = new ResultSet(); //retrieve the resultSet var
+//        Account account = new Account();       // get their account
 //        if (type == "Student")
 //           user = new Student(resultSet, account);
 //        else if (type == "Administration")

@@ -1,11 +1,17 @@
 package UI;
 
 
+import UserManagement.HealthCareOfficial;
+import UserManagement.Student;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class StudentUI extends UserInterface{
+    Student student;
     StudentUI() throws SQLException {
+        if (user instanceof Student)
+            student = (Student) user;
     }
 
     public void display(){
@@ -17,60 +23,67 @@ public class StudentUI extends UserInterface{
         do {
             System.out.println("\nStudent Menu:");
             System.out.println("1. Edit Profile");
-            System.out.println("2. Edit Personal Info");
-            System.out.println("3. Edit Medical History");
-            System.out.println("4. Submit New Sick Leave Request");
-            System.out.println("5. Check Sick Leave Status");
-            System.out.println("6. Submit Referral Request");
-            System.out.println("7. Check Referral Status");
-            System.out.println("8. Schedule Appointment");
-            System.out.println("9. Check Appointment Status");
-            System.out.println("10. Request Prescription Refill");
-            System.out.println("11. Check Prescription Refill Status");
-            System.out.println("12. Emergency Services");
-            System.out.println("13. Exit");
+            System.out.println("2. Edit Medical History");
+            System.out.println("3. Submit New Sick Leave Request");
+            System.out.println("4. Check Sick Leave Status");
+            System.out.println("5. Submit Referral Request");
+            System.out.println("6. Check Referral Status");
+            System.out.println("7. Schedule Appointment");
+            System.out.println("8. Check Appointment Status");
+            System.out.println("9. Request Prescription Refill");
+            System.out.println("10. Check Prescription Refill Status");
+            System.out.println("11. Emergency Services");
+            System.out.println("12. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    // Implement Edit Profile
+                    //Edit Profile
+                    user.editProfile();
                     break;
                 case 2:
-                    // Implement Edit Personal Info
+                    //Edit Medical History
+                    student.editMedicalHistory();
                     break;
                 case 3:
-                    // Implement Edit Medical History
+                    //Submit New Sick Leave Request
+                    student.submitRequest("Sick Leave");
                     break;
                 case 4:
-                    // Implement Submit New Sick Leave Request
+                    //Check Sick Leave Status
+                    student.checkRequestStatus("Sick Leave");
                     break;
                 case 5:
-                    // Implement Check Sick Leave Status
+                    //Submit Referral Request
+                    student.submitRequest("Referral");
                     break;
                 case 6:
-                    // Implement Submit Referral Request
+                    //Check Referral Status
+                    student.checkRequestStatus("Referral");
                     break;
                 case 7:
-                    // Implement Check Referral Status
+                    //Schedule Appointment
+                    student.scheduleAppointment();
                     break;
                 case 8:
-                    // Implement Schedule Appointment
+                    //Check Appointment Status
+                    student.checkAppointmentStatus();
                     break;
                 case 9:
-                    // Implement Check Appointment Status
+                    //Request Prescription Refill
+                    student.submitRequest("Prescription Refill");
                     break;
                 case 10:
-                    // Implement Request Prescription Refill
+                    //Check Prescription Refill Status
+                    student.checkRequestStatus("Prescription Refill");
                     break;
                 case 11:
-                    // Implement Check Prescription Refill Status
+                    //Display Emergency Services
+                    displayEmergencyServices();
                     break;
                 case 12:
-                    // Implement Emergency Services
-                    break;
-                case 13:
                     System.out.println("Exiting Student Menu...");
                     break;
                 default:

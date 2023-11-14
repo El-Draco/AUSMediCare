@@ -23,7 +23,9 @@ public class User {
         String username = in.next();
         System.out.println("Please enter your password: ");
         String password = in.next();
-        //@Shafiay: Validate credentials
+
+        //@TODO: Validate credentials
+        //retrieve and set 'account' variable here if login was succesfull
         boolean loginResult = UsersTableManager.getInstance().RecordExists(
                 new ArrayList<String>(List.of(new String[]{"user_id = 'b00087311'"})));
         System.out.println(loginResult);
@@ -50,11 +52,12 @@ public class User {
         System.out.println("Please enter your password: ");
         String password = in.next();
         Account newAccount = new Account(username, password);
-
-        //@TODO:
-        // Add account to database
+        //@TODO: Add account to database
     }
 
+    public void editProfile() {
+
+    }
     public boolean isLoggedIn() {
         return (loggedIn);
     }

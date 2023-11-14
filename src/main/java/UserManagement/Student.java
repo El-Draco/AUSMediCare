@@ -28,4 +28,27 @@ public class Student extends User{
     public Student(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);
     }
+
+    public void editMedicalHistory() {
+        //@TODO: Implement Edit Medical History
+
+    }
+
+    public void submitRequest(String type) {
+        //@TODO: Implement Submit New Request
+        //idea: have a RequestManager object which would handle this
+    }
+    public void checkRequestStatus(String type) {
+        //@TODO: Implement Check Request Status
+        //idea: have a RequestManager object which would handle this
+    }
+    public void scheduleAppointment() {
+        //@TODO: Implement Schedule Appointment
+        //idea: have an AppointmentManager object for this
+    }
+    public void checkAppointmentStatus() {
+        //@TODO: Implement Check Appointment Status
+    }
+
+
 }
