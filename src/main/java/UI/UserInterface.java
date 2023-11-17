@@ -13,6 +13,7 @@ public class UserInterface {
 
 
     UserInterface() {
+        user = null;
         try {
             displayMainMenu();
         }
@@ -37,9 +38,9 @@ public class UserInterface {
             choice = in.nextInt();
             switch (choice) {
                 case 1 -> {
-                   // user = new ProxyUser();
-                    if (!user.isLoggedIn())
-                        break;
+//                    user = new ProxyUser();
+//                    if (user != null || !user.isLoggedIn())
+//                        break;
                     setMenuType();
                 }
                 case 2 -> {
