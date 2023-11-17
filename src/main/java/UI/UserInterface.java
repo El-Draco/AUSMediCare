@@ -37,11 +37,10 @@ public class UserInterface {
             choice = in.nextInt();
             switch (choice) {
                 case 1 -> {
-                   // user = new ProxyUser();
-                    /*if (!user.isLoggedIn())
+//                    user = new ProxyUser();
+                    if (!user.isLoggedIn())
                         break;
-                    setMenuType();*/
-                    user = user;
+                    setMenuType();
                 }
                 case 2 -> {
                     User.register();
