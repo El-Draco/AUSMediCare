@@ -109,6 +109,7 @@ public abstract class Request {
         processRequest(3);
     }
     public void submitRequest() throws SQLException {
+        //@TODO: Shafai needs to check database logic
         RequestsTableManager.getInstance().AddRecord(new ArrayList<String>(List.of(new String[]{"request_id = '" + id +"'","request_type = '" + type +"'","students_id = '" + studentId+"'"})));
     }
 }
