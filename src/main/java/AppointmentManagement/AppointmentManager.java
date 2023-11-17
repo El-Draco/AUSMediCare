@@ -1,15 +1,13 @@
 package AppointmentManagement;
 
 import DatabaseManagement.AppointmentsTableManager;
+import RequestManagement.Request;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Date;
+import java.util.*;
 import java.text.SimpleDateFormat;
 
 public class AppointmentManager {
@@ -54,6 +52,13 @@ public class AppointmentManager {
         if(appointments==null) appointments = AppointmentsTableManager.getInstance().GetRecords(null,
                 null, null, null);
         return appointments;
+    }
+
+    public void getAppointments(String studentId) throws SQLException {
+        for(Appointment appointment : appointments){
+            if(Objects.equals(appointment.getPatient().getId(), studentId))
+                System.out.println(appointment);
+        }
     }
 
     public int checkAppointmentStatus(int aid){

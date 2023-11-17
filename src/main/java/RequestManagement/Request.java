@@ -137,4 +137,10 @@ public abstract class Request {
                         "'" + studentEid + "'"
                         })));
     }
+    @Override
+    public String toString(){
+        return "Request ID: " + id+ ", Status: "+ status;
+    }
+
+
 }
