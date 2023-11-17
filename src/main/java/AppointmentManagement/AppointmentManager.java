@@ -1,7 +1,6 @@
 package AppointmentManagement;
 
 import DatabaseManagement.AppointmentsTableManager;
-import RequestManagement.Request;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
 
@@ -18,8 +17,10 @@ public class AppointmentManager {
     boolean appmode; //0 is for in-person and 1 is for online
 
     Scanner scanner = new Scanner(System.in);
-    public void scheduleAppointment(int appid,Date date,int status,Student patient,HealthCareOfficial doctor) throws SQLException {
-
+    public void scheduleAppointment(Date date,int status,Student patient,HealthCareOfficial doctor) throws SQLException {
+        retrieveAppointment();
+        int appid = 0;
+        if(appointments!=null) appid=appointments.size()+1;
         if(schedule.CheckAvailability(date,doctor)) {
             System.out.println("Select appointment type: ");
             apptype = scanner.nextBoolean();
@@ -48,8 +49,8 @@ public class AppointmentManager {
         else
             System.out.println("Appointment is not available");
     }
-    public ArrayList<Appointment> RetrieveAppointment() throws SQLException {
-        if(appointments==null) appointments = AppointmentsTableManager.getInstance().GetRecords(null,
+    public ArrayList<Appointment> retrieveAppointment() throws SQLException {
+        appointments = AppointmentsTableManager.getInstance().GetRecords(null,
                 null, null, null);
         return appointments;
     }

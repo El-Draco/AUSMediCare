@@ -42,6 +42,10 @@ public class Student extends User{
         super(resultSet, account);
     }
 
+    public Student() {
+
+    }
+
     public Student getInstance(){
         return this;
     }

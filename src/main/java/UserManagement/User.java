@@ -21,6 +21,10 @@ public abstract class User {
         this.resultSet = resultSet;
     }
 
+    public User(){
+
+    }
+
     public User(ResultSet resultSet,Account account) {
         this.account = account;
         this.resultSet = resultSet;

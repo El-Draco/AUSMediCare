@@ -2,6 +2,7 @@ package RequestManagement;
 
 import DatabaseManagement.RequestsTableManager;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +17,7 @@ public class RequestManager {
         requests = retrieveRequests();
     }
     public ArrayList<Request> retrieveRequests() throws SQLException {
-        if(requests==null) requests = RequestsTableManager.getInstance().GetRecords(null, null, null, null);
+        requests = RequestsTableManager.getInstance().GetRecords(null, null, null, null);
         return requests;
     }
 
@@ -28,7 +29,11 @@ public class RequestManager {
         //return RequestsTableManager.getInstance().GetRecords(null, new ArrayList<String>(List.of(new String[]{"students_id = " + studentId})), null, null);
     }
 
-    public void submitRequest(int id, String studentId, Date date, String form, String type, String studentEid) throws SQLException {
+    public void submitRequest(String studentId, Date date, String form, String type, String studentEid) throws SQLException {
+        retrieveRequests();
+        int id = 0;
+        if(requests!=null) id = requests.size()+1;
+
         Request request = null;
         if(Objects.equals(type, "sickleave"))
             request = new SickLeaveRequest(id, studentId, date, form, type, studentEid);
