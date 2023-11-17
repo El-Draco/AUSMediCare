@@ -4,6 +4,8 @@ import DatabaseManagement.RequestsTableManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,13 +98,18 @@ public abstract class Request {
         this.healthcareOfficialId = resultSet.getString("healthcareofficials_id");
         this.studentId = resultSet.getString("students_id");
         this.date = resultSet.getDate("date");
-        this.form = resultSet.getBlob("form").toString();
+        this.form = resultSet.getString("form");
         this.type = resultSet.getString("request_type");
         this.studentEid = resultSet.getString("students_eid");
     }
 
     public void processRequest(int status) throws SQLException {
-        RequestsTableManager.getInstance().UpdateRecords(new ArrayList<String>(List.of(new String[]{"request_status = " + status})), new ArrayList<String>(List.of(new String[]{"request_id = '" + id +"'","students_id = '"+studentId+"'"})));
+        RequestsTableManager.getInstance().UpdateRecords(
+                new ArrayList<String>(List.of(new String[]{"request_status = " + status})),
+                new ArrayList<String>(List.of(new String[]{
+                        "request_id = '" + id +"'",
+                        "students_id = '"+studentId+"'",
+                        "healthcareofficials_id = '" + healthcareOfficialId + "'"})));
     }
 
     public void cancelRequest() throws SQLException {
@@ -110,6 +117,24 @@ public abstract class Request {
     }
     public void submitRequest() throws SQLException {
         //@TODO: Shafai needs to check database logic
-        RequestsTableManager.getInstance().AddRecord(new ArrayList<String>(List.of(new String[]{"request_id = '" + id +"'","request_type = '" + type +"'","students_id = '" + studentId+"'"})));
+        String pattern = "dd/MMM/yyyy";
+        // Create an instance of SimpleDateFormat used for formatting
+        // the string representation of date according to the chosen pattern
+        DateFormat df = new SimpleDateFormat(pattern);
+        // Using DateFormat format method we can create a string
+        // representation of a date with the defined format.
+        String dateAsString = df.format(date);
+
+        RequestsTableManager.getInstance().AddRecord(
+                new ArrayList<String>(List.of(new String[]{
+                        "'" + id +"'",
+                        "'" + healthcareOfficialId + "'",
+                        "'" + studentId+"'",
+                        type + "",
+                        "'" + dateAsString + "'",
+                        "'" + form + "'",
+                        "'" + type + "'",
+                        "'" + studentEid + "'"
+                        })));
     }
 }

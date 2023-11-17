@@ -10,16 +10,16 @@ public class HealthCareOfficial extends User implements AccessStudentProfile{
         super(account, loggedIn);
     }
 
-    public void manageSickLeaveRequests(){
-        //@TODO: Implement
-    }
-    public void manageReferralRequests() {
-        //@TODO: Implement
-    }
-    public void manageAppointments() {
-        //@TODO: Implement
-    }
-    public void managePrescriptionRefillRequests() {
-        //@TODO: Implement
-    }
+//    public void manageSickLeaveRequests(){
+//        //@TODO: Implement
+//    }
+//    public void manageReferralRequests() {
+//        //@TODO: Implement
+//    }
+//    public void manageAppointments() {
+//        //@TODO: Implement
+//    }
+//    public void managePrescriptionRefillRequests() {
+//        //@TODO: Implement
+//    }
 }

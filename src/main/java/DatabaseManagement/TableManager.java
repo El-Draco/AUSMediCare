@@ -57,7 +57,7 @@ public abstract class TableManager {
         return result;
     }
     public int AddRecord(ArrayList<String> params) throws SQLException {
-        String sql = String.format("INSERT INTO %s VALUES %s",this.getTableName(), String.join(", ", params));
+        String sql = String.format("INSERT INTO %s VALUES (%s)",this.getTableName(), String.join(", ", params));
         return this.getCon().executePrepared(sql);
     }
     public int DeleteRecords(ArrayList<String> conds) throws SQLException {
@@ -65,7 +65,8 @@ public abstract class TableManager {
         return this.getCon().executePrepared(sql);
     }
     public int UpdateRecords(ArrayList<String> params, ArrayList<String> conds) throws SQLException {
-        String sql = String.format("UPDATE %s SET %s WHERE %s",this.getTableName(), String.join(", ", params),
+        String sql = String.format("UPDATE %s SET %s WHERE %s",this.getTableName(),
+                String.join(", ", params),
                 String.join(", ", conds));
         return this.getCon().executePrepared(sql);
     }

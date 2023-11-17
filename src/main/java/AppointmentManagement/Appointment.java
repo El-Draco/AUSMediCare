@@ -37,10 +37,6 @@ public class Appointment {
         return this.appointmentID;
     }
 
-    public void updateStatus(int status){
-        this.status = status;
-    }
-
     public Date getDate() {
         return this.date;
     }
@@ -52,7 +48,12 @@ public class Appointment {
         //System.out.println(UsersTableManager.getInstance().RecordExists(
         //              new ArrayList<String>(List.of(new String[]{"user_id = 'b00087311'"}))
         //        ));
-        AppointmentsTableManager.getInstance().UpdateRecords(new ArrayList<>(List.of(new String[]{"appointment_status = " + status})), new ArrayList<String>(List.of(new String[]{"appointment_id = '" + appointmentID+"'", "students_id = '" + patient.getAccount().getId()+"'","healthcare officials_id = '" + doctor.getAccount().getId()+"'"})));
+        this.status = status;
+        AppointmentsTableManager.getInstance().UpdateRecords(
+                new ArrayList<>(List.of(new String[]{"appointment_status = " + status})),
+                new ArrayList<String>(List.of(new String[]{"appointment_id = '"
+                        + appointmentID+"'", "students_id = '" + patient.getAccount().getId()
+                        +"'","healthcareofficials_id = '" + doctor.getAccount().getId()+"'"})));
     }
 
     public void CancelAppointment() throws SQLException {
