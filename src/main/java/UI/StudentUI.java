@@ -124,10 +124,11 @@ public class StudentUI extends UserInterface{
                     break;
                 case 2:
                     //Edit Medical History
-//                    student.editMedicalHistory();
+//                    student.editMedicalHistory();g
                     break;
                 case 3:
                     //Submit New Sick Leave Request
+                    displaySubmitRequest("sickleave");
                     requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","sickleave",student.getEid());
                     break;
                 case 4:
@@ -138,7 +139,6 @@ public class StudentUI extends UserInterface{
                 case 5:
                     //Submit Referral Request
                     displaySubmitRequest("referral");
-                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","referral",student.getEid());
                     break;
                 case 6:
                     //Check Referral Status
@@ -146,7 +146,6 @@ public class StudentUI extends UserInterface{
                     break;
                 case 7:
                     //Schedule Appointment
-                    appointmentStatus = 0;
                     displayScheduleAppontment();
                     break;
                 case 8:
@@ -156,8 +155,6 @@ public class StudentUI extends UserInterface{
                 case 9:
                     //Request Prescription Refill
                     displaySubmitRequest("refill");
-                    //student.submitRequest("Prescription Refill");
-                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","refill",student.getEid());
                     break;
                 case 10:
                     //Check Prescription Refill Status
