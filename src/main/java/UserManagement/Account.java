@@ -30,4 +30,15 @@ public class Account {
     public void setId(String id) {
         this.id = id;
     }
+    public Account getInstance(){
+        return this;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

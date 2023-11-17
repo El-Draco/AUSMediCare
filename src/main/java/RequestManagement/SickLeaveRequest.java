@@ -22,8 +22,8 @@ public class SickLeaveRequest extends Request{
     public void notifyProfessors() throws SQLException {
         //@TODO: Shafai needs to check database logic
         ArrayList<String> professors = ProfessorsTableManager.getInstance().GetRecords(null, new ArrayList<String>(List.of(new String[]{"students_id = '" + super.getStudentId()+"'"})));
-        for(int i=0; i< professors.size();i++){
-            System.out.println("Professor (" + professors.get(i) +") has been notified.");
+        for (String professor : professors) {
+            System.out.println("Professor (" + professor + ") has been notified.");
         }
         System.out.println("Emails have been sent to the professors.");
     }

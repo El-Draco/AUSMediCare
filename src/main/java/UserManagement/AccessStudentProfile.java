@@ -1,5 +1,8 @@
 package UserManagement;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public interface AccessStudentProfile {
-    void accessStudentProfile();
+    ArrayList<Student> accessStudentProfile() throws SQLException;
 }

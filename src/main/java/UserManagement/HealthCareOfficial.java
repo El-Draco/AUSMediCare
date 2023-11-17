@@ -1,8 +1,17 @@
 package UserManagement;
+import DatabaseManagement.HealthcareOfficialsTableManager;
+import DatabaseManagement.StudentsTableManager;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class HealthCareOfficial extends User implements AccessStudentProfile{
-    public void accessStudentProfile(){}
+    public ArrayList<Student> accessStudentProfile() throws SQLException {
+        return StudentsTableManager.getInstance().GetRecords(new ArrayList<>(List.of(new String[]{"id","name" ,"email" ,"eid","major", "age","gender"})),
+                null, null, null);
+    }
     public HealthCareOfficial(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);
     }
@@ -10,16 +19,19 @@ public class HealthCareOfficial extends User implements AccessStudentProfile{
         super(account, loggedIn);
     }
 
-//    public void manageSickLeaveRequests(){
-//        //@TODO: Implement
-//    }
-//    public void manageReferralRequests() {
-//        //@TODO: Implement
-//    }
-//    public void manageAppointments() {
-//        //@TODO: Implement
-//    }
-//    public void managePrescriptionRefillRequests() {
-//        //@TODO: Implement
-//    }
+    public HealthCareOfficial(ResultSet resultSet, Account account,String name,String email) throws SQLException {
+        super(resultSet, account,name,email);
+    }
+    public HealthCareOfficial getInstance(){
+        return this;
+    }
+
+    public void updateInfo(User user) throws SQLException {
+        HealthcareOfficialsTableManager.getInstance().UpdateRecords(
+                new ArrayList<>(List.of(new String[]{"name = '" + user.getName() +"'"
+                        ,"email = '" + user.getEmail() +"'"})),
+                new ArrayList<String>(List.of(new String[]{"id = '"
+                        + user.getAccount().getId() +"'"})));
+    }
+
 }
