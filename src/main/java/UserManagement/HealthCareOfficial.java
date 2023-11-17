@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HealthCareOfficial extends User implements AccessStudentProfile{
-    public void accessStudentProfile(){}
+    public ArrayList<Student> accessStudentProfile() throws SQLException {
+        return StudentsTableManager.getInstance().GetRecords(new ArrayList<>(List.of(new String[]{"id","name" ,"email" ,"eid","major", "age","gender"})),
+                null, null, null);
+    }
     public HealthCareOfficial(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);
     }

@@ -56,7 +56,7 @@ public class AppointmentManager {
 
     public void getAppointments(String studentId) throws SQLException {
         for(Appointment appointment : appointments){
-            if(Objects.equals(appointment.getPatient().getId(), studentId))
+            if(Objects.equals(appointment.getPatient().getAccount().getId(), studentId))
                 System.out.println(appointment);
         }
     }

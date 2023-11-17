@@ -2,8 +2,10 @@ package UI;
 
 import UserManagement.Administration;
 import UserManagement.HealthCareOfficial;
+import UserManagement.Student;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -45,7 +47,7 @@ public class AdministrationUI extends UserInterface{
                 case 1:
                     if (user instanceof Administration) {
                         Administration administration = (Administration) user;
-                        administration.accessStudentProfile();
+                        ArrayList<Student> students= administration.accessStudentProfile();
                     } else {
                         System.out.println("Error! Invalid Permissions");
                         exit(0);

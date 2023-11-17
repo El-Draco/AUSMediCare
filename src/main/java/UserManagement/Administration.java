@@ -1,7 +1,7 @@
 package UserManagement;
 
 import DatabaseManagement.AdministrationTableManager;
-import DatabaseManagement.HealthcareOfficialsTableManager;
+import DatabaseManagement.StudentsTableManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +13,10 @@ public class Administration extends User implements AccessStudentProfile{
         super(account, loggedIn);
     }
 
-    public void accessStudentProfile(){}
+    public ArrayList<Student> accessStudentProfile() throws SQLException {
+        return StudentsTableManager.getInstance().GetRecords(new ArrayList<>(List.of(new String[]{"id","name" ,"email" ,"eid","major", "age","gender"})),
+                null, null, null);
+    }
     public Administration(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);
     }
