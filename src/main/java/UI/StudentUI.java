@@ -1,20 +1,33 @@
 package UI;
 
 
+import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class StudentUI extends UserInterface{
     Student student;
+    RequestManager requestManager = new RequestManager();
+
+    Date currentDate;
+
+    //not sure if this is right but this is my logic for unique request ids
+    private static int lastId = 0;
+
+    public static int generateUniqueId(){
+        return ++lastId;
+    }
+
     StudentUI() throws SQLException {
         if (user instanceof Student)
             student = (Student) user;
     }
 
-    public void display(){
+    public void display() throws SQLException {
         System.out.println("Welcome to the Student Menu");
 
         Scanner scanner = new Scanner(System.in);
@@ -37,6 +50,8 @@ public class StudentUI extends UserInterface{
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
+            currentDate = new Date();
+            int reqId;
 
             switch (choice) {
                 case 1:
@@ -49,19 +64,27 @@ public class StudentUI extends UserInterface{
                     break;
                 case 3:
                     //Submit New Sick Leave Request
-                    student.submitRequest("Sick Leave");
+                    //student.submitRequest("Sick Leave");
+                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"","sickleave",student.getEid());
                     break;
                 case 4:
                     //Check Sick Leave Status
-                    student.checkRequestStatus("Sick Leave");
+                    //student.checkRequestStatus("Sick Leave");
+                    System.out.print("Enter a request ID to check: ");
+                    reqId = scanner.nextInt();
+                    requestManager.checkRequestStatus(reqId,"sickleave");
                     break;
                 case 5:
                     //Submit Referral Request
-                    student.submitRequest("Referral");
+                    //student.submitRequest("Referral");
+                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"","referral",student.getEid());
                     break;
                 case 6:
                     //Check Referral Status
-                    student.checkRequestStatus("Referral");
+                    //student.checkRequestStatus("Referral");
+                    System.out.print("Enter a request ID to check: ");
+                    reqId = scanner.nextInt();
+                    requestManager.checkRequestStatus(reqId,"referral");
                     break;
                 case 7:
                     //Schedule Appointment
@@ -73,11 +96,15 @@ public class StudentUI extends UserInterface{
                     break;
                 case 9:
                     //Request Prescription Refill
-                    student.submitRequest("Prescription Refill");
+                    //student.submitRequest("Prescription Refill");
+                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"","refill",student.getEid());
                     break;
                 case 10:
                     //Check Prescription Refill Status
-                    student.checkRequestStatus("Prescription Refill");
+                    //student.checkRequestStatus("Prescription Refill");
+                    System.out.print("Enter a request ID to check: ");
+                    reqId = scanner.nextInt();
+                    requestManager.checkRequestStatus(reqId,"refill");
                     break;
                 case 11:
                     //Display Emergency Services
