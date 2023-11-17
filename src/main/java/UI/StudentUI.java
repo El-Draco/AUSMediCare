@@ -266,7 +266,7 @@ public class StudentUI extends UserInterface{
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"",requestType,student.getEid());
+                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"",requestType,student.getEid());
                     if (requestType == "sickleave")
                         System.out.println(" Note: Request is valid for only 7 days starting today." +
                                 "If you need a longer period of absence excused please apply again after 5 days");
