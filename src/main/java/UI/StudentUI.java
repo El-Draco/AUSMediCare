@@ -2,7 +2,6 @@ package UI;
 
 
 import AppointmentManagement.AppointmentManager;
-import RequestManagement.Request;
 import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
@@ -20,13 +19,6 @@ public class StudentUI extends UserInterface{
 
     Date currentDate;
     Date appointment_date;  //date for scheduling appointment
-
-    //not sure if this is right but this is my logic for unique request ids
-    private static int lastId = 0;
-
-    public static int generateUniqueId(){
-        return ++lastId;
-    }
 
     public void statusUpdate(int status, int reqId){//1 = approved, 2 = declined, 3 = cancelled
         if(status == 1)
@@ -124,40 +116,58 @@ public class StudentUI extends UserInterface{
                     break;
                 case 2:
                     //Edit Medical History
-//                    student.editMedicalHistory();
+                    //student.editMedicalHistory();
                     break;
                 case 3:
                     //Submit New Sick Leave Request
-                    displaySubmitRequest("sickleave");
+                    //student.submitRequest("Sick Leave");
+                    requestManager.submitRequest(student.getAccount().getId(),currentDate,"","sickleave",student.getEid());
                     break;
                 case 4:
                     //Check Sick Leave Status
-                    displayCheckRequestStatus("sickleave");
-
+                    //student.checkRequestStatus("Sick Leave");
+                    System.out.print("Enter a request ID to check: ");
+                    reqId = scanner.nextInt();
+                    reqStatus=requestManager.checkRequestStatus(reqId,"sickleave");
+                    statusUpdate(reqStatus,reqId);
                     break;
                 case 5:
                     //Submit Referral Request
-                    displaySubmitRequest("referral");
+                    //student.submitRequest("Referral");
+                    requestManager.submitRequest(student.getAccount().getId(),currentDate,"","referral",student.getEid());
                     break;
                 case 6:
                     //Check Referral Status
-                    displayCheckRequestStatus("referral");
+                    //student.checkRequestStatus("Referral");
+                    System.out.print("Enter a request ID to check: ");
+                    reqId = scanner.nextInt();
+                    reqStatus=requestManager.checkRequestStatus(reqId,"referral");
+                    statusUpdate(reqStatus,reqId);
                     break;
                 case 7:
                     //Schedule Appointment
-                    displayScheduleAppointment();
+                    appointmentStatus = 0;
+                    appointmentManager.scheduleAppointment(appointment_date,appointmentStatus,student,doctor);
                     break;
                 case 8:
                     //Check Appointment Status
-                    displayCheckAppointmentStatus();
+                    System.out.println("Enter an appointment ID to check: ");
+                    appointmentId = scanner.nextInt();
+                    appointmentStatus = appointmentManager.checkAppointmentStatus(appointmentId);
+                    System.out.println("Appointment status is: " + appointmentStatus);
                     break;
                 case 9:
                     //Request Prescription Refill
-                    displaySubmitRequest("refill");
+                    //student.submitRequest("Prescription Refill");
+                    requestManager.submitRequest(student.getAccount().getId(),currentDate,"","refill",student.getEid());
                     break;
                 case 10:
                     //Check Prescription Refill Status
-                    displayCheckRequestStatus("refill");
+                    //student.checkRequestStatus("Prescription Refill");
+                    System.out.print("Enter a request ID to check: ");
+                    reqId = scanner.nextInt();
+                    reqStatus=requestManager.checkRequestStatus(reqId,"refill");
+                    statusUpdate(reqStatus,reqId);
                     break;
                 case 11:
                     //Display Emergency Services
@@ -195,91 +205,5 @@ public class StudentUI extends UserInterface{
                     System.out.println("Invalid choice. Please select a valid option.");
             }
         } while (choice != 13);
-    }
-
-    private void displayScheduleAppointment() throws SQLException{
-        System.out.println("**************Welcome to the Schedule Appointment Page*******************\n\n");
-        Scanner scanner = new Scanner(System.in);
-
-//        appointmentManager.scheduleAppointment(generateUniqueId(),appointment_date,0,student,doctor);
-
-        System.out.println("Is the appt. medical or therapy? (0:medical, 1:therapy)\n");
-        scanner.nextInt();
-        System.out.println("Is the appt. in-person or online? (0:in-person, 1:online)\n");
-        scanner.nextInt();
-        appointmentManager.scheduleAppointment(generateUniqueId(),appointment_date,0,student,doctor);
-
-    }
-
-    private void displayCheckAppointmentStatus() throws SQLException{
-        System.out.println("**************Welcome to the Appointment Status Page*******************\n\n");
-
-        //display all appointment ids:
-        appointmentManager.getAppointments(getStudent().getAccount().getId());
-        Scanner scanner = new Scanner(System.in);
-        int appointmentId, appointmentStatus;
-        do {
-            System.out.println("Enter an appointment ID to check. Enter -1 to exit.\n");
-            appointmentId = scanner.nextInt();
-            if (appointmentId == -1)
-                break;
-            appointmentStatus = appointmentManager.checkAppointmentStatus(appointmentId);
-            System.out.println("Appointment status is: " + appointmentStatus);
-            //1: booked, 2: done, 3: cancelled
-            if (appointmentStatus == 1)
-                System.out.println("Appointment status: " + "Booked.");
-            else if (appointmentStatus == 2)
-                System.out.println("Appointment status: " + "Done & Completed.");
-            else if (appointmentStatus == 3)
-                System.out.println("Appointment status: " + "Cancelled.");
-            else
-                System.out.println("Appointment does not exist. Invalid.");
-        } while (appointmentId != -1);
-    }
-
-    private void displayCheckRequestStatus(String requestType) throws SQLException {
-        System.out.println("**************Welcome to the Check Request Status Page*******************\n\n");
-        //display request ids here:
-        requestManager.getRequests(getStudent().getAccount().getId());
-        Scanner scanner = new Scanner(System.in);
-        int reqId, reqStatus;
-        do {
-            System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
-            reqId = scanner.nextInt();
-            if (reqId == -1)
-                break;
-            reqStatus = requestManager.checkRequestStatus(reqId, requestType);
-            statusUpdate(reqStatus,reqId);
-        } while (reqId != -1);
-
-    }
-
-    private void displaySubmitRequest(String requestType) throws SQLException{
-        System.out.println("**************Welcome to the Submit Request Page**********************\n\n");
-
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-        do {
-            System.out.println("Please choose an option: \n");
-            System.out.println("1. Submit a " + requestType + " Request.");
-            System.out.println("2. Exit");
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"",requestType,student.getEid());
-                    if (requestType == "sickleave")
-                        System.out.println(" Note: Request is valid for only 7 days starting today." +
-                                "If you need a longer period of absence excused please apply again after 5 days");
-                    System.out.println("Submitting" + requestType + " request....\n");
-                    System.out.println("Request submitted succesfully.\n");
-                    break;
-                case 2:
-                    System.out.println("Returning to main menu");
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-                    break;
-            }
-        } while (choice != 2);
     }
 }

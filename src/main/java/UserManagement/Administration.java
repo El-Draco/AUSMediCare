@@ -14,8 +14,7 @@ public class Administration extends User implements AccessStudentProfile{
     }
 
     public ArrayList<Student> accessStudentProfile() throws SQLException {
-        return StudentsTableManager.getInstance().GetRecords(new ArrayList<>(List.of(new String[]{"id","name" ,"email" ,"eid","major", "age","gender"})),
-                null, null, null);
+        return StudentsTableManager.getInstance().GetRecords(null, null, null, null);
     }
     public Administration(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);

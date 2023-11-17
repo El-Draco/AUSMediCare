@@ -104,13 +104,13 @@ public class Appointment {
     }
     public Appointment(ResultSet resultSet) throws SQLException {
         this.appointmentID = resultSet.getInt("appointment_id");
-        this.healthcareofficialID = resultSet.getString(doctor.getAccount().getId());
-        this.studentID = resultSet.getString(patient.getAccount().getId());
+        this.healthcareofficialID = resultSet.getString("healthcareofficial_id");
+        this.studentID = resultSet.getString("students_id");
         this.date = resultSet.getDate("appointment_date");
         this.appointmentType = resultSet.getBoolean("appointment_type");
         this.appointmentMode = resultSet.getBoolean("appointment_mode");
         this.appointmentType = resultSet.getBoolean("appointment_type");
-        this.studentEID = resultSet.getString(patient.getEid());
+        this.studentEID = resultSet.getString("students_eid");
     }
 
     public void UpdateAppointment(int status) throws SQLException {

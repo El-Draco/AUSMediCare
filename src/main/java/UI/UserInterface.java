@@ -12,8 +12,8 @@ public class UserInterface {
     protected String menuType;
 
 
-    UserInterface() {
-        user = null;
+    UserInterface() throws SQLException {
+        user = new Student(new Account("b00087311","111111"),true,"",19,false,"9393939393","b00087311","b00087311@aus.edu");
         try {
             displayMainMenu();
         }
@@ -38,10 +38,10 @@ public class UserInterface {
             choice = in.nextInt();
             switch (choice) {
                 case 1 -> {
-//                    user = new ProxyUser();
-//                    if (user != null || !user.isLoggedIn())
-//                        break;
-                    setMenuType();
+                   // user = new ProxyUser();
+                    /*if (!user.isLoggedIn())
+                        break;
+                    setMenuType();*/
                 }
                 case 2 -> {
                     User.register();
