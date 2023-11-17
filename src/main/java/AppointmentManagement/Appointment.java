@@ -14,6 +14,10 @@ import UserManagement.HealthCareOfficial;
 public class Appointment {
 
     private Student patient;
+    private String studentID;
+    private String healthcareofficialID;
+
+    private String studentEID;
     private HealthCareOfficial doctor;
     private int appointmentID;
     private int status; //1 = booked, 2 = done, 3 = cancelled
@@ -31,17 +35,14 @@ public class Appointment {
         this.appointmentType=appointmentType;
     }
     public Appointment(ResultSet resultSet) throws SQLException {
-
-    }
-    public int getAppointmentID() {
-        return this.appointmentID;
-    }
-
-    public Date getDate() {
-        return this.date;
-    }
-    public int getStatus(){
-        return this.status;
+        this.appointmentID = resultSet.getInt("appointment_id");
+        this.healthcareofficialID = resultSet.getString(doctor.getAccount().getId());
+        this.studentID = resultSet.getString(patient.getId());
+        this.date = resultSet.getDate("appointment_date");
+        this.appointmentType = resultSet.getBoolean("appointment_type");
+        this.appointmentMode = resultSet.getBoolean("appointment_mode");
+        this.appointmentType = resultSet.getBoolean("appointment_type");
+        this.studentEID = resultSet.getString(patient.getEid());
     }
 
     public void UpdateAppointment(int status) throws SQLException {
@@ -58,6 +59,21 @@ public class Appointment {
 
     public void CancelAppointment() throws SQLException {
         UpdateAppointment(3);
+    }
+
+    public int getAppointmentID() {
+        return this.appointmentID;
+    }
+
+    public void updateStatus(int status){
+        this.status = status;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+    public int getStatus(){
+        return this.status;
     }
 
 
