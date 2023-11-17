@@ -1,7 +1,6 @@
 package DatabaseManagement;
 
 import UserManagement.Student;
-import UserManagement.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,7 @@ public class StudentsTableManager extends TableManager {
     }
 
     // member methods
-    public static StudentsTableManager getInstance(String tableName) {
+    public static StudentsTableManager getInstance() {
         if (instance == null)
             instance = new StudentsTableManager();
         return instance;
