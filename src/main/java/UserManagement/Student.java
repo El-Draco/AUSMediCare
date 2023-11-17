@@ -1,16 +1,50 @@
 package UserManagement;
 
+import DatabaseManagement.AppointmentsTableManager;
+import DatabaseManagement.StudentsTableManager;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends User{
     private String major;
     private int age;
-    private boolean gender;
+    private boolean gender; //True=Female, False= Male
     private String eid;
 
-    private String id;
 
+
+
+
+
+    public Student(Account account, boolean loggedIn, String major, int age, boolean gender, String eid, String name,  String email) throws SQLException {
+        super(account, loggedIn,name,email);
+        this.major = major;
+        this.age = age;
+        this.gender = gender;
+        this.eid = eid;
+
+    }
+
+    public Student(ResultSet resultSet, Account account, String major, int age, boolean gender, String eid, Boolean Gender) throws SQLException {
+
+        super(resultSet, account);
+        this.major = major;
+        this.age = age;
+        this.gender = gender;
+        this.eid = eid;
+
+    }
+
+    public Student(ResultSet resultSet, Account account) throws SQLException {
+        super(resultSet, account);
+    }
+
+    public Student getInstance(){
+        return this;
+    }
     public String getMajor() {
         return major;
     }
@@ -43,57 +77,40 @@ public class Student extends User{
         this.eid = eid;
     }
 
-    public String getId() {
-        return id;
+
+
+
+    public void editMedicalHistory() {
+        //@TODO: Implement Edit Medical History
+
     }
 
-    public void setId(String id) {
-        this.id = id;
+    /*public void submitRequest(String type) {
+        //@TODO: Implement Submit New Request
+        //idea: have a RequestManager object which would handle this
+    }
+    public void checkRequestStatus(String type) {
+        //@TODO: Implement Check Request Status
+        //idea: have a RequestManager object which would handle this
+    }
+    */
+    public void scheduleAppointment() {
+        //@TODO: Implement Schedule Appointment
+        //idea: have an AppointmentManager object for this
+    }
+    public void checkAppointmentStatus() {
+        //@TODO: Implement Check Appointment Status
     }
 
-    public Student(Account account, boolean loggedIn, String major, int age, boolean gender, String eid, String id) {
-        super(account, loggedIn);
-        this.major = major;
-        this.age = age;
-        this.gender = gender;
-        this.eid = eid;
-        this.id=id;
+    public void updateInfo(User user) throws SQLException {
+        Student student=(Student)user;
+        StudentsTableManager.getInstance().UpdateRecords(
+                new ArrayList<>(List.of(new String[]{"name = '" + student.getName() +"'"
+                        ,"email = '" + student.getEmail() +"'","eid = '" + student.eid+"'"
+                        ,"major = '" + student.major
+                        ,"Age = '" + student.age+"'","gender = '" + student.gender+"'"})),
+                new ArrayList<String>(List.of(new String[]{"id = '"
+                        + student.getAccount().getId()+"'"})));
     }
-
-    public Student(ResultSet resultSet, Account account, String major, int age, boolean gender, String eid, String id) throws SQLException {
-        super(resultSet, account);
-        this.major = major;
-        this.age = age;
-        this.gender = gender;
-        this.eid = eid;
-        this.id=id;
-    }
-
-    public Student(ResultSet resultSet, Account account) throws SQLException {
-        super(resultSet, account);
-    }
-
-//    public void editMedicalHistory() {
-//        //@TODO: Implement Edit Medical History
-//
-//    }
-//
-//    /*public void submitRequest(String type) {
-//        //@TODO: Implement Submit New Request
-//        //idea: have a RequestManager object which would handle this
-//    }
-//    public void checkRequestStatus(String type) {
-//        //@TODO: Implement Check Request Status
-//        //idea: have a RequestManager object which would handle this
-//    }
-//    */
-//    public void scheduleAppointment() {
-//        //@TODO: Implement Schedule Appointment
-//        //idea: have an AppointmentManager object for this
-//    }
-//    public void checkAppointmentStatus() {
-//        //@TODO: Implement Check Appointment Status
-//    }
-
 
 }

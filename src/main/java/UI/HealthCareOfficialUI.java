@@ -10,10 +10,19 @@ import static java.lang.System.exit;
 
 public class HealthCareOfficialUI extends UserInterface{
     HealthCareOfficial healthCareOfficial;
+
+    public HealthCareOfficial getHealthCareOfficial() {
+        return healthCareOfficial;
+    }
+
+    public void setHealthCareOfficial(HealthCareOfficial healthCareOfficial) {
+        this.healthCareOfficial = healthCareOfficial;
+    }
+
     HealthCareOfficialUI() throws SQLException {
     }
 
-    public void display(){
+    public void display() throws SQLException {
         System.out.println("Welcome to the Healthcare Official Menu");
 
         Scanner scanner = new Scanner(System.in);
@@ -27,7 +36,9 @@ public class HealthCareOfficialUI extends UserInterface{
             System.out.println("4. Manage Appointments");
             System.out.println("5. Manage Prescription Refill Requests");
             System.out.println("6. Access Emergency Contact Information");
-            System.out.println("7. Exit");
+            System.out.println("7. Update Personal Info");
+            System.out.println("8. Update Credentials Info");
+            System.out.println("9. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -45,25 +56,78 @@ public class HealthCareOfficialUI extends UserInterface{
                     break;
                 case 2:
                     // Manage Sick Leave Requests:
-                    healthCareOfficial.manageSickLeaveRequests();
+                   // healthCareOfficial.manageSickLeaveRequests();
                     break;
                 case 3:
                     // Manage Referral Requests:
-                    healthCareOfficial.manageReferralRequests();
+                   // healthCareOfficial.manageReferralRequests();
                     break;
                 case 4:
                     // Manage Appointments
-                    healthCareOfficial.manageAppointments();
+                   // healthCareOfficial.manageAppointments();
                     break;
                 case 5:
                     // Manage Prescription Refill Requests
-                    healthCareOfficial.managePrescriptionRefillRequests();
+                    //healthCareOfficial.managePrescriptionRefillRequests();
                     break;
                 case 6:
                     // Access Emergency Contact Information
                     displayEmergencyServices();
                     break;
                 case 7:
+                    //updateInfo
+
+                    System.out.println("Current Student Account Info:" +
+                            "\n1. Name: " + healthCareOfficial.getName()+
+                            "\n2. Email: " + healthCareOfficial.getEmail()+
+                            "\n3. Exit Update Personal Info"
+                    );
+
+                    int updatechoice;
+                    String temp;
+                    do {
+                        System.out.println(" Enter number to update information ");
+                        updatechoice = scanner.nextInt();
+                        switch (updatechoice) {
+                            case 1:
+                                System.out.println("Enter new name");
+                                healthCareOfficial.setName(scanner.nextLine());
+                                break;
+                            case 2:
+                                System.out.println("Enter new email");
+                                healthCareOfficial.setEmail(scanner.nextLine());
+                                break;
+
+                        }
+                    }while(updatechoice!=3);
+                    healthCareOfficial.updateInfo(healthCareOfficial.getInstance());
+                    break;
+                case 8:
+                    //update credentials
+                    System.out.println("Current Student Account Info:" +
+                            "\n1. Change Username: " + healthCareOfficial.getAccount().getUsername()+
+                            "\n2. Change Password " +
+                            "\n3. Exit Update Credentials"
+                    );
+
+                    int credschoice;
+                    do {
+                        System.out.println(" Enter number to update information ");
+                        credschoice = scanner.nextInt();
+                        switch (credschoice) {
+                            case 1:
+                                System.out.println("Enter new username");
+                                healthCareOfficial.getAccount().setUsername(scanner.nextLine());
+                                break;
+                            case 2:
+                                System.out.println("Enter new password");
+                                healthCareOfficial.getAccount().setPassword(scanner.nextLine());
+                                break;
+                        }
+                    }while(credschoice!=3);
+                    healthCareOfficial.updateCredentials(healthCareOfficial.getInstance());
+                    break;
+                case 9:
                     System.out.println("Exiting Healthcare Official Menu.");
                     break;
                 default:

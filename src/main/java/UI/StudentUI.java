@@ -5,6 +5,7 @@ import AppointmentManagement.AppointmentManager;
 import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
+import UserManagement.User;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -42,6 +43,14 @@ public class StudentUI extends UserInterface{
             student = (Student) user;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public void display() throws SQLException {
         System.out.println("Welcome to the Student Menu");
 
@@ -50,7 +59,7 @@ public class StudentUI extends UserInterface{
 
         do {
             System.out.println("\nStudent Menu:");
-            System.out.println("1. Edit Profile");
+            System.out.println("1. Update Personal Info");
             System.out.println("2. Edit Medical History");
             System.out.println("3. Submit New Sick Leave Request");
             System.out.println("4. Check Sick Leave Status");
@@ -61,7 +70,8 @@ public class StudentUI extends UserInterface{
             System.out.println("9. Request Prescription Refill");
             System.out.println("10. Check Prescription Refill Status");
             System.out.println("11. Emergency Services");
-            System.out.println("12. Exit");
+            System.out.println("12. Update Credentials");
+            System.out.println("13. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -71,8 +81,45 @@ public class StudentUI extends UserInterface{
 
             switch (choice) {
                 case 1:
-                    //Edit Profile
-                    user.editProfile();
+                    //Update Profile
+                    System.out.println("Current Student Account Info:" +
+                            "\n1. Name: " + student.getName()+
+                            "\n2. Email: " + student.getEmail()+
+                            "\n3. Emirates ID: " + student.getEid()+
+                            "\n4. Age: "+ student.getAge()+
+                            "\n5. Major: "+student.getMajor()+
+                            "\n6. Exit Update Personal Info"
+                    );
+
+                    int updatechoice;
+                    String temp;
+                    do {
+                        System.out.println(" Enter number to update information ");
+                        updatechoice = scanner.nextInt();
+                        switch (updatechoice) {
+                            case 1:
+                                System.out.println("Enter new name");
+                                student.setName(scanner.nextLine());
+                                break;
+                            case 2:
+                                System.out.println("Enter new email");
+                                student.setEmail(scanner.nextLine());
+                                break;
+                            case 3:
+                                System.out.println("Enter new Emirates ID");
+                                student.setEid(scanner.nextLine());
+                                break;
+                            case 4:
+                                System.out.println("Enter new age");
+                                student.setAge(scanner.nextInt());
+                                break;
+                            case 5:
+                                System.out.println("Enter new major");
+                                student.setMajor(scanner.nextLine());
+                                break;
+                        }
+                    }while(updatechoice!=6);
+                    student.updateInfo(student.getInstance());
                     break;
                 case 2:
                     //Edit Medical History
@@ -81,7 +128,7 @@ public class StudentUI extends UserInterface{
                 case 3:
                     //Submit New Sick Leave Request
                     //student.submitRequest("Sick Leave");
-                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"","sickleave",student.getEid());
+                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","sickleave",student.getEid());
                     break;
                 case 4:
                     //Check Sick Leave Status
@@ -94,7 +141,7 @@ public class StudentUI extends UserInterface{
                 case 5:
                     //Submit Referral Request
                     //student.submitRequest("Referral");
-                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"","referral",student.getEid());
+                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","referral",student.getEid());
                     break;
                 case 6:
                     //Check Referral Status
@@ -119,7 +166,7 @@ public class StudentUI extends UserInterface{
                 case 9:
                     //Request Prescription Refill
                     //student.submitRequest("Prescription Refill");
-                    requestManager.submitRequest(generateUniqueId(),student.getId(),currentDate,"","refill",student.getEid());
+                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","refill",student.getEid());
                     break;
                 case 10:
                     //Check Prescription Refill Status
@@ -134,6 +181,31 @@ public class StudentUI extends UserInterface{
                     displayEmergencyServices();
                     break;
                 case 12:
+                    //update credentials
+                    System.out.println("Current Student Account Info:" +
+                            "\n1. Change Username: " + student.getAccount().getUsername()+
+                            "\n2. Change Password " +
+                            "\n3. Exit Update Credentials"
+                    );
+
+                    int credschoice;
+                    do {
+                        System.out.println(" Enter number to update information ");
+                        credschoice = scanner.nextInt();
+                        switch (credschoice) {
+                            case 1:
+                                System.out.println("Enter new username");
+                                student.getAccount().setUsername(scanner.nextLine());
+                                break;
+                            case 2:
+                                System.out.println("Enter new password");
+                                student.getAccount().setPassword(scanner.nextLine());
+                                break;
+                        }
+                    }while(credschoice!=3);
+                    student.updateCredentials(student.getInstance());
+                    break;
+                case 13:
                     System.out.println("Exiting Student Menu...");
                     break;
                 default:
