@@ -17,7 +17,7 @@ public abstract class Request {
     private String type;
     private String studentEid;
 
-    private int status; //1 = approved, 2 = declined, 3 = cancelled
+    private int status; //0 = nothing done yet, 1 = approved, 2 = declined, 3 = cancelled
 
     public int getId() {
         return id;

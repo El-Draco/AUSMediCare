@@ -22,6 +22,17 @@ public class StudentUI extends UserInterface{
         return ++lastId;
     }
 
+    public void statusUpdate(int status, int reqId){//1 = approved, 2 = declined, 3 = cancelled
+        if(status == 1)
+            System.out.println("Request (ID: " +reqId+" has been approved.");
+        else if(status==2)
+            System.out.println("Request (ID: " +reqId+" has been declined.");
+        else if(status == 3)
+            System.out.println("Request (ID: " +reqId+" has been cancelled.");
+        else
+            System.out.println("Request (ID: " +reqId+" has not been updated yet.");
+    }
+
     StudentUI() throws SQLException {
         if (user instanceof Student)
             student = (Student) user;
@@ -51,7 +62,7 @@ public class StudentUI extends UserInterface{
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             currentDate = new Date();
-            int reqId;
+            int reqId, reqStatus;
 
             switch (choice) {
                 case 1:
@@ -72,7 +83,8 @@ public class StudentUI extends UserInterface{
                     //student.checkRequestStatus("Sick Leave");
                     System.out.print("Enter a request ID to check: ");
                     reqId = scanner.nextInt();
-                    requestManager.checkRequestStatus(reqId,"sickleave");
+                    reqStatus=requestManager.checkRequestStatus(reqId,"sickleave");
+                    statusUpdate(reqStatus,reqId);
                     break;
                 case 5:
                     //Submit Referral Request
@@ -84,7 +96,8 @@ public class StudentUI extends UserInterface{
                     //student.checkRequestStatus("Referral");
                     System.out.print("Enter a request ID to check: ");
                     reqId = scanner.nextInt();
-                    requestManager.checkRequestStatus(reqId,"referral");
+                    reqStatus=requestManager.checkRequestStatus(reqId,"referral");
+                    statusUpdate(reqStatus,reqId);
                     break;
                 case 7:
                     //Schedule Appointment
@@ -104,7 +117,8 @@ public class StudentUI extends UserInterface{
                     //student.checkRequestStatus("Prescription Refill");
                     System.out.print("Enter a request ID to check: ");
                     reqId = scanner.nextInt();
-                    requestManager.checkRequestStatus(reqId,"refill");
+                    reqStatus=requestManager.checkRequestStatus(reqId,"refill");
+                    statusUpdate(reqStatus,reqId);
                     break;
                 case 11:
                     //Display Emergency Services
