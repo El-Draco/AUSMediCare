@@ -25,6 +25,74 @@ public class Appointment {
     private boolean appointmentType; //0 is for medical and 1 is for therapy
     private boolean appointmentMode; //0 is for in-person and 1 is for online
 
+    public Student getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Student patient) {
+        this.patient = patient;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+    public String getHealthcareofficialID() {
+        return healthcareofficialID;
+    }
+
+    public void setHealthcareofficialID(String healthcareofficialID) {
+        this.healthcareofficialID = healthcareofficialID;
+    }
+
+    public String getStudentEID() {
+        return studentEID;
+    }
+
+    public void setStudentEID(String studentEID) {
+        this.studentEID = studentEID;
+    }
+
+    public HealthCareOfficial getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(HealthCareOfficial doctor) {
+        this.doctor = doctor;
+    }
+
+    public void setAppointmentID(int appointmentID) {
+        this.appointmentID = appointmentID;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isAppointmentType() {
+        return appointmentType;
+    }
+
+    public void setAppointmentType(boolean appointmentType) {
+        this.appointmentType = appointmentType;
+    }
+
+    public boolean isAppointmentMode() {
+        return appointmentMode;
+    }
+
+    public void setAppointmentMode(boolean appointmentMode) {
+        this.appointmentMode = appointmentMode;
+    }
+
     Appointment(int appointmentID, Date date, int status, Student patient, HealthCareOfficial doctor, boolean appointmentType, boolean appointmentMode ){
         this.appointmentID=appointmentID;
         this.date=date;
@@ -76,5 +144,8 @@ public class Appointment {
         return this.status;
     }
 
-
+    @Override
+    public String toString() {
+        return "Appointment ID: " + appointmentID + ", Status: " + status;
+    }
 }
