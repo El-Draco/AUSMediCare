@@ -124,12 +124,11 @@ public class StudentUI extends UserInterface{
                     break;
                 case 2:
                     //Edit Medical History
-//                    student.editMedicalHistory();g
+                    student.editMedicalHistory();
                     break;
                 case 3:
                     //Submit New Sick Leave Request
                     displaySubmitRequest("sickleave");
-                    requestManager.submitRequest(generateUniqueId(),student.getAccount().getId(),currentDate,"","sickleave",student.getEid());
                     break;
                 case 4:
                     //Check Sick Leave Status
@@ -146,7 +145,7 @@ public class StudentUI extends UserInterface{
                     break;
                 case 7:
                     //Schedule Appointment
-                    displayScheduleAppontment();
+                    displayScheduleAppointment();
                     break;
                 case 8:
                     //Check Appointment Status
@@ -198,7 +197,7 @@ public class StudentUI extends UserInterface{
         } while (choice != 13);
     }
 
-    private void displayScheduleAppontment() throws SQLException{
+    private void displayScheduleAppointment() throws SQLException{
         System.out.println("**************Welcome to the Schedule Appointment Page*******************\n\n");
         Scanner scanner = new Scanner(System.in);
 
