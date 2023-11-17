@@ -1,6 +1,7 @@
 package UI;
 
 
+import AppointmentManagement.AppointmentManager;
 import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
@@ -11,9 +12,12 @@ import java.util.Scanner;
 
 public class StudentUI extends UserInterface{
     Student student;
+    HealthCareOfficial doctor;
     RequestManager requestManager = new RequestManager();
+    AppointmentManager appointmentManager = new AppointmentManager();
 
     Date currentDate;
+    Date appointment_date;  //date for scheduling appointment
 
     //not sure if this is right but this is my logic for unique request ids
     private static int lastId = 0;
@@ -63,6 +67,7 @@ public class StudentUI extends UserInterface{
             choice = scanner.nextInt();
             currentDate = new Date();
             int reqId, reqStatus;
+            int appointmentId, appointmentStatus;
 
             switch (choice) {
                 case 1:
@@ -101,11 +106,15 @@ public class StudentUI extends UserInterface{
                     break;
                 case 7:
                     //Schedule Appointment
-                    student.scheduleAppointment();
+                    appointmentStatus = 0;
+                    appointmentManager.scheduleAppointment(generateUniqueId(),appointment_date,appointmentStatus,student,doctor);
                     break;
                 case 8:
                     //Check Appointment Status
-                    student.checkAppointmentStatus();
+                    System.out.println("Enter an appointment ID to check: ");
+                    appointmentId = scanner.nextInt();
+                    appointmentStatus = appointmentManager.checkAppointmentStatus(appointmentId);
+                    System.out.println("Appointment status is: " + appointmentStatus);
                     break;
                 case 9:
                     //Request Prescription Refill
