@@ -1,6 +1,5 @@
 package UI;
 
-import AppointmentManagement.*;
 import UserManagement.*;
 
 import java.sql.SQLException;
@@ -42,6 +41,7 @@ public class UserInterface {
                     /*if (!user.isLoggedIn())
                         break;
                     setMenuType();*/
+                    user = user;
                 }
                 case 2 -> {
                     User.register();
