@@ -124,7 +124,7 @@ public class StudentUI extends UserInterface{
                     break;
                 case 2:
                     //Edit Medical History
-                    student.editMedicalHistory();
+//                    student.editMedicalHistory();
                     break;
                 case 3:
                     //Submit New Sick Leave Request
@@ -211,11 +211,11 @@ public class StudentUI extends UserInterface{
 
     }
 
-    private void displayCheckAppointmentStatus() {
+    private void displayCheckAppointmentStatus() throws SQLException{
         System.out.println("**************Welcome to the Appointment Status Page*******************\n\n");
 
         //display all appointment ids:
-
+        appointmentManager.getAppointments(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
         int appointmentId, appointmentStatus;
         do {
@@ -237,10 +237,10 @@ public class StudentUI extends UserInterface{
         } while (appointmentId != -1);
     }
 
-    private void displayCheckRequestStatus(String requestType) {
+    private void displayCheckRequestStatus(String requestType) throws SQLException {
         System.out.println("**************Welcome to the Check Request Status Page*******************\n\n");
         //display request ids here:
-
+        requestManager.getRequests(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
         int reqId, reqStatus;
         do {
