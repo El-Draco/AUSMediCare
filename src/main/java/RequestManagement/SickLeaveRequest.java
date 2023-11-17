@@ -1,6 +1,7 @@
 package RequestManagement;
 
 import DatabaseManagement.AppointmentsTableManager;
+import DatabaseManagement.ProfessorsTableManager;
 import DatabaseManagement.RequestsTableManager;
 
 import java.sql.ResultSet;
@@ -18,9 +19,13 @@ public class SickLeaveRequest extends Request{
         super(id,studentId, date, form, type,studentEid);
     }
 
-    public void notifyProfessors(){
-        //@TODO: Implement Notify Professors
-
+    public void notifyProfessors() throws SQLException {
+        //@TODO: Shafai needs to check database logic
+        ArrayList<String> professors = ProfessorsTableManager.getInstance().GetRecords(null, new ArrayList<String>(List.of(new String[]{"students_id = '" + super.getStudentId()+"'"})));
+        for(int i=0; i< professors.size();i++){
+            System.out.println("Professor (" + professors.get(i) +") has been notified.");
+        }
+        System.out.println("Emails have been sent to the professors.");
     }
 
     public void processRequest(int status) throws SQLException {
