@@ -1,8 +1,12 @@
 package UI;
 
+import DatabaseManagement.UsersTableManager;
 import UserManagement.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -11,19 +15,15 @@ public class UserInterface {
     protected String menuType;
 
 
-    UserInterface() throws SQLException {
-        user = new Student(new Account("b00087311","111111"),true,"",19,false,"9393939393","b00087311","b00087311@aus.edu");
-        try {
-            displayMainMenu();
-        }
-        catch(SQLException e){
-            System.out.println("Exception: " + e.getMessage());
-        }
-    }
+    UserInterface() throws SQLException {    }
     public void close() {}
 
-    public void displayMainMenu() throws SQLException {
+    public void displayMainMenu() throws SQLException, NoSuchAlgorithmException {
         System.out.println("**********Welcome to the AUS MediCare Application!**********");
+
+        String id = "";
+        String password = "";
+
         Scanner in = new Scanner(System.in);
         int choice;
         do {
@@ -37,21 +37,26 @@ public class UserInterface {
             choice = in.nextInt();
             switch (choice) {
                 case 1 -> {
-//                    user = new ProxyUser();
-                    if (!user.isLoggedIn())
+                    in.nextLine();
+                    System.out.println("ID: ");
+                    id = in.nextLine();
+                    System.out.println("Password: ");
+                    password = in.nextLine();
+                    user = new ProxyUser().login(id, password);
+                    if (user == null)
                         break;
                     setMenuType();
                 }
                 case 2 -> {
-                    User.register();
-                    System.out.println("User registered succesfully. Please login to use the " +
+                    this.register();
+                    System.out.println("User registered successfully. Please login to use the " +
                             "AUS Medicare Facilities!\n");
                 }
                 case 3 -> displayEmergencyServices();
                 case 4 -> System.out.println("Exiting application...\n");
                 default -> System.out.println("Invalid choice");
             }
-        }while (choice != 3 && !user.isLoggedIn());
+        }while (choice != 4 && user == null);
     }
 
     public void displayMenu() throws SQLException {
@@ -72,7 +77,7 @@ public class UserInterface {
         }
     }
     public void displayEmergencyServices(){
-        System.out.println("Welcome to the Emergency Services Portal\n\n");
+        System.out.println("Welcome to the Emergency Services Portal\n\nFor further help, please call 05439920023.\n");
         //@TODO: Implement
     }
 
@@ -85,6 +90,38 @@ public class UserInterface {
         else if (user instanceof Administration)
             menuType = "Administration";
         else
-            menuType = "HealthCareOfficial";
+            menuType = "HealthcareOfficial";
+    }
+
+    public void register() throws NoSuchAlgorithmException, SQLException {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("*EXPERIMENTAL*\nWelcome to the Registration Portal\n\n");
+        System.out.println("Please select the account type: \n");
+        System.out.println("1. Student");
+        System.out.println("2. HealthcareOfficial");
+        System.out.println("3. Administration Staff");
+        // check validity of account type
+        int choice = 0;
+        while (choice < 1 || choice > 3){
+            choice = in.nextInt();
+            if (choice < 1 || choice > 3)
+                System.out.println("Invalid account type! Please try again.\n\n");
+        }
+        // retrieve inputs
+        System.out.println("Please enter your name: ");
+        String name = in.nextLine();
+        System.out.println("Please enter your id: ");
+        String id = in.next();
+        System.out.println("Please enter your password: ");
+        String password = in.next();
+        // hash the password
+        password = UsersTableManager.getMD5Hash(password);
+        // add the user to the database
+        UsersTableManager.getInstance().AddRecord(new ArrayList<String>(List.of(new String[]{
+                "'" + name +"'",
+                "'" + id + "'",
+                "'" + password + "'"
+        })));
     }
 }

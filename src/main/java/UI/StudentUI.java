@@ -5,7 +5,6 @@ import AppointmentManagement.AppointmentManager;
 import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
-import UserManagement.User;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -76,7 +75,7 @@ public class StudentUI extends UserInterface{
                 case 1:
                     //Update Profile
                     System.out.println("Current Student Account Info:" +
-                            "\n1. Name: " + student.getName()+
+                            "\n1. Name: " + student.getAccount().getName()+
                             "\n2. Email: " + student.getEmail()+
                             "\n3. Emirates ID: " + student.getEid()+
                             "\n4. Age: "+ student.getAge()+
@@ -92,7 +91,7 @@ public class StudentUI extends UserInterface{
                         switch (updatechoice) {
                             case 1:
                                 System.out.println("Enter new name");
-                                student.setName(scanner.nextLine());
+                                student.getAccount().setName(scanner.nextLine());
                                 break;
                             case 2:
                                 System.out.println("Enter new email");
@@ -176,7 +175,7 @@ public class StudentUI extends UserInterface{
                 case 12:
                     //update credentials
                     System.out.println("Current Student Account Info:" +
-                            "\n1. Change Username: " + student.getAccount().getUsername()+
+                            "\n1. Change Username: " + student.getAccount().getName()+
                             "\n2. Change Password " +
                             "\n3. Exit Update Credentials"
                     );
@@ -188,7 +187,7 @@ public class StudentUI extends UserInterface{
                         switch (credschoice) {
                             case 1:
                                 System.out.println("Enter new username");
-                                student.getAccount().setUsername(scanner.nextLine());
+                                student.getAccount().setName(scanner.nextLine());
                                 break;
                             case 2:
                                 System.out.println("Enter new password");

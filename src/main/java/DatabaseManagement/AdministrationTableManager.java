@@ -19,16 +19,15 @@ public class AdministrationTableManager extends TableManager {
 
     public ArrayList<Administration> GetRecords(ArrayList<String> params, ArrayList<String> conds, String groupBy, String orderBy) throws SQLException {
         ArrayList<Administration> administration = new ArrayList<>();
-        String sql = this.ProcessSql(params, conds, groupBy, orderBy);
+        String sql = this.ProcessSql(params, conds);
         try (Statement statement = this.GetStatement()) {
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 resultSet.beforeFirst();
                 while (resultSet.next()) {
-                    String _id = resultSet.getString("id");
-                    ArrayList<String> _params = new ArrayList<String>(List.of(new String[]{"name", "id", "password"}));
-                    ArrayList<String> _conds = new ArrayList<String>(List.of(new String[]{"id = '" + _id + "'"}));
-                    administration.add(new Administration(resultSet,
-                            UsersTableManager.getInstance().GetRecord(_params, _conds)));
+                    String _id = resultSet.getString("admin_id");
+                    ArrayList<String> _conds = new ArrayList<String>(List.of(new String[]{"user_id = '" + _id + "'"}));
+                    administration.add(new Administration(
+                            UsersTableManager.getInstance().GetRecord(null, _conds)));
                 }
             }
         }

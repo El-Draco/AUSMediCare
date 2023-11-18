@@ -19,7 +19,7 @@ public class RequestsTableManager extends TableManager {
     // member methods
     public ArrayList<Request> GetRecords(ArrayList<String> params, ArrayList<String> conds, String groupBy, String orderBy) throws SQLException {
         ArrayList<Request> requests = new ArrayList<>();
-        String sql = this.ProcessSql(params, conds, groupBy, orderBy);
+        String sql = this.ProcessSql(params, conds);
         try (Statement statement = this.GetStatement()) {
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 resultSet.beforeFirst();

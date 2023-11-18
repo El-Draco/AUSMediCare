@@ -9,27 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Administration extends User implements AccessStudentProfile{
-    public Administration(Account account, boolean loggedIn) {
-        super(account, loggedIn);
-    }
+
 
     public ArrayList<Student> accessStudentProfile() throws SQLException {
         return StudentsTableManager.getInstance().GetRecords(null, null, null, null);
     }
-    public Administration(ResultSet resultSet, Account account) throws SQLException {
-        super(resultSet, account);
+
+    public Administration(Account account, String name) {
+        super(account, name);
+    }
+    public Administration(Account account) throws SQLException {
+        super(account);
     }
     public Administration getInstance(){
         return this;
-    }
-    public Administration(ResultSet resultSet, Account account,String name,String email) throws SQLException {
-        super(resultSet, account,name,email);
     }
 
 
     public void updateInfo(User user) throws SQLException {
         AdministrationTableManager.getInstance().UpdateRecords(
-                new ArrayList<>(List.of(new String[]{"name = '" + user.getName() +"'"
+                new ArrayList<>(List.of(new String[]{"name = '" + user.getAccount().getName() +"'"
                         ,"email = '" + user.getEmail() +"'"})),
                 new ArrayList<String>(List.of(new String[]{"id = '"
                         + user.getAccount().getId() +"'"})));

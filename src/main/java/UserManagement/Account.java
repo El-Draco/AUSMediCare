@@ -5,20 +5,20 @@ import java.sql.SQLException;
 
 public class Account {
     private String id;
-    private String username;
+    private String name;
     private String password;
     public Account(String _username, String _password){
-        username = _username;
+        name = _username;
         password = _password;
     }
-    public String getUsername(){
-        return (username);
+    public String getName(){
+        return (name);
     }
     public String getPassword() {
         return (password);
     }
     public Account(ResultSet resultSet) throws SQLException {
-        this.username = resultSet.getString("name");
+        this.name = resultSet.getString("name");
         this.password = resultSet.getString("password");
         this.id = resultSet.getString("user_id");
     }
@@ -34,8 +34,8 @@ public class Account {
         return this;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPassword(String password) {

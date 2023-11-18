@@ -3,6 +3,8 @@ package DatabaseManagement;
 import UserManagement.Student;
 import UserManagement.User;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,30 +26,23 @@ public abstract class TableManager {
     public Statement GetStatement() throws SQLException {
         return this.getCon().getStatement();
     }
-    public String ProcessSql(ArrayList<String> params, ArrayList<String> conds, String groupBy, String orderBy) {
+    public String ProcessSql(ArrayList<String> params, ArrayList<String> conds) {
         String where;
         String cols;
-        if (groupBy == null)
-            groupBy = "";
-        else
-            groupBy = " GROUP BY " + groupBy;
-        if (orderBy == null)
-            orderBy = "";
-        else
-            orderBy = "ORDER BY " + orderBy;
+
         if (conds == null)
             where = "";
         else
-            where = " WHERE " + String.join(", ", conds);
+            where = " WHERE " + String.join(" and ", conds);
         if (params == null)
             cols = "*";
         else
             cols = String.join(", ", params);
-        String sql = String.format("SELECT %s FROM %s %s %s %s", cols, this.getTableName(), where, groupBy, orderBy);
+        String sql = String.format("SELECT %s FROM %s %s", cols, this.getTableName(), where);
         return sql;
     }
     public boolean RecordExists(ArrayList<String> conds) throws SQLException {
-        String sql = ProcessSql(null, conds, null, null);
+        String sql = ProcessSql(null, conds);
         boolean result = false;
         try (Statement statement = this.getCon().getStatement()) {
             try (ResultSet resultSet = statement.executeQuery(sql)){
@@ -69,6 +64,24 @@ public abstract class TableManager {
                 String.join(", ", params),
                 String.join(", ", conds));
         return this.getCon().executePrepared(sql);
+    }
+    public static String getMD5Hash(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(input.getBytes());
+
+        byte[] byteData = md.digest();
+
+        // convert the byte to hex format
+        StringBuilder hexString = new StringBuilder();
+        for (byte aByteData : byteData) {
+            String hex = Integer.toHexString(0xff & aByteData);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
     }
     // member fields
     private final String tableName;

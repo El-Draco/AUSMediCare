@@ -1,7 +1,6 @@
 package UI;
 
 import UserManagement.Administration;
-import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
 
 import java.sql.SQLException;
@@ -66,7 +65,7 @@ public class AdministrationUI extends UserInterface{
                 case 5:
                     //updateInfo
                     System.out.println("Current Student Account Info:" +
-                            "\n1. Name: " + admin.getName()+
+                            "\n1. Name: " + admin.getAccount().getName()+
                             "\n2. Email: " + admin.getEmail()+
                             "\n3. Exit Update Personal Info"
                     );
@@ -79,7 +78,7 @@ public class AdministrationUI extends UserInterface{
                         switch (updatechoice) {
                             case 1:
                                 System.out.println("Enter new name");
-                                admin.setName(scanner.nextLine());
+                                admin.getAccount().setName(scanner.nextLine());
                                 break;
                             case 2:
                                 System.out.println("Enter new email");
@@ -93,7 +92,7 @@ public class AdministrationUI extends UserInterface{
                 case 6:
                     //update credentials
                     System.out.println("Current Student Account Info:" +
-                            "\n1. Change Username: " + admin.getAccount().getUsername()+
+                            "\n1. Change Username: " + admin.getAccount().getName()+
                             "\n2. Change Password " +
                             "\n3. Exit Update Credentials"
                     );
@@ -105,7 +104,7 @@ public class AdministrationUI extends UserInterface{
                         switch (credschoice) {
                             case 1:
                                 System.out.println("Enter new username");
-                                admin.getAccount().setUsername(scanner.nextLine());
+                                admin.getAccount().setName(scanner.nextLine());
                                 break;
                             case 2:
                                 System.out.println("Enter new password");

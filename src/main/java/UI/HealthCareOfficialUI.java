@@ -1,7 +1,6 @@
 package UI;
 
 import UserManagement.HealthCareOfficial;
-import UserManagement.Student;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -78,7 +77,7 @@ public class HealthCareOfficialUI extends UserInterface{
                     //updateInfo
 
                     System.out.println("Current Student Account Info:" +
-                            "\n1. Name: " + healthCareOfficial.getName()+
+                            "\n1. Name: " + healthCareOfficial.getAccount().getName()+
                             "\n2. Email: " + healthCareOfficial.getEmail()+
                             "\n3. Exit Update Personal Info"
                     );
@@ -91,7 +90,7 @@ public class HealthCareOfficialUI extends UserInterface{
                         switch (updatechoice) {
                             case 1:
                                 System.out.println("Enter new name");
-                                healthCareOfficial.setName(scanner.nextLine());
+                                healthCareOfficial.getAccount().setName(scanner.nextLine());
                                 break;
                             case 2:
                                 System.out.println("Enter new email");
@@ -105,7 +104,7 @@ public class HealthCareOfficialUI extends UserInterface{
                 case 8:
                     //update credentials
                     System.out.println("Current Student Account Info:" +
-                            "\n1. Change Username: " + healthCareOfficial.getAccount().getUsername()+
+                            "\n1. Change Username: " + healthCareOfficial.getAccount().getName()+
                             "\n2. Change Password " +
                             "\n3. Exit Update Credentials"
                     );
@@ -117,7 +116,7 @@ public class HealthCareOfficialUI extends UserInterface{
                         switch (credschoice) {
                             case 1:
                                 System.out.println("Enter new username");
-                                healthCareOfficial.getAccount().setUsername(scanner.nextLine());
+                                healthCareOfficial.getAccount().setName(scanner.nextLine());
                                 break;
                             case 2:
                                 System.out.println("Enter new password");
@@ -134,6 +133,6 @@ public class HealthCareOfficialUI extends UserInterface{
                     System.out.println("Invalid choice. Please enter a valid option.");
                     break;
             }
-        } while (choice != 7);
+        } while (choice != 9);
     }
 }

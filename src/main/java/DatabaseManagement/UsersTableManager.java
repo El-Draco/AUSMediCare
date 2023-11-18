@@ -14,7 +14,7 @@ public class UsersTableManager extends TableManager {
         super("Users");
     }
     public Account GetRecord(ArrayList<String> params, ArrayList<String> conds) throws SQLException {
-        String sql = this.ProcessSql(params, conds, null, null);
+        String sql = this.ProcessSql(params, conds);
         try (Statement statement = this.GetStatement()) {
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 if (resultSet.first())

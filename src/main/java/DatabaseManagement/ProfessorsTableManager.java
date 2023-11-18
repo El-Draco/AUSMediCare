@@ -24,7 +24,7 @@ public class ProfessorsTableManager extends TableManager {
         ArrayList<String> professors = new ArrayList<>();
         if (conds == null)
             return professors;
-        String sql = this.ProcessSql(params, conds, null, null);
+        String sql = this.ProcessSql(params, conds);
         try (Statement statement = this.GetStatement()) {
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 resultSet.beforeFirst();

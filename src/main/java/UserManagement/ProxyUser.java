@@ -4,6 +4,7 @@ import DatabaseManagement.ProfessorsTableManager;
 import DatabaseManagement.StudentsTableManager;
 import DatabaseManagement.UsersTableManager;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,15 +12,9 @@ import java.util.List;
 
 public class ProxyUser extends User {
     private User user;
-    private String type;
-    public ProxyUser(ResultSet resultSet, Account account) throws SQLException{
-        super(resultSet,  account);
-        try {
-            login(); //use return value
-        }
-        catch (SQLException e){
+    public ProxyUser() {
 
-        }
+    }
 
 
         //@TODO:
@@ -35,41 +30,25 @@ public class ProxyUser extends User {
 //             user = new Administration(resultSet, account);
 //        else if (type == "HealthCareOfficial")
 //             user = new HealthCareOfficial(resultSet, account);
+
+    public ProxyUser(String id, String password) throws SQLException {
+
     }
 
-   public ProxyUser(String id, String password) throws SQLException {
-//        if( UsersTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{"user_id = '" + id +"'",
-//                "password = '" + password+"'"}))))
-//        {
-//            if(ProfessorsTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{"professor_id = '" + id +"'"})))){
-//                return ProfessorsTableManager.getInstance().GetRecords(null, new ArrayList<String>(List.of(new String[]{"professor_id = '" + id +"'"})));
-//            }
-//            else if(StudentsTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{"student_id = '" + id +"'"})))){
-//
-//            }
-//            else{
-//                return null;
-//            }
-        }
 
-
-    /*public User login(String id, String password) throws SQLException {
-        if( UsersTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{"user_id = '" + id +"'",
-                "password = '" + password+"'"}))))
+    public User login(String id, String password) throws SQLException, NoSuchAlgorithmException {
+        user = null;
+        // if the user's credentials are correct
+        if (UsersTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{
+                "user_id = '" + id +"'",
+                "password = '" + UsersTableManager.getMD5Hash(password) +"'"}))))
         {
-            if(ProfessorsTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{"professor_id = '" + id +"'"})))){
-                return ProfessorsTableManager.getInstance().GetRecords(null,
-                        new ArrayList<String>(List.of(new String[]{"professor_id = '" + id +"'"})));
-
-            }
-            else if(StudentsTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{"student_id = '" + id +"'"})))){
-
-            }
-            else{
-                return null;
-            }
+            // retrieve the user
+            user = User.login(id);
         }
-    }*/
+        // return the user
+        return user;
+    }
 
     @Override
     public void updateInfo(User user) throws SQLException {}//no implementation

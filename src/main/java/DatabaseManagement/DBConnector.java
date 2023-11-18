@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 public class DBConnector {
     private static DBConnector instance = null;
-    final String DBURL = "jdbc:oracle:thin:@coeoracle.aus.edu:1521:orcl";
+    final String DBURL = "jdbc:oracle:thin:@COEORACLE.AUS.EDU:1521:orcl";
     final String DBUSER = "b00087311";
     final String DBPASS = "b00087311";
 
@@ -21,11 +21,12 @@ public class DBConnector {
         try {
             // Load Oracle JDBC Driver
             Class.forName("oracle.jdbc.driver.OracleDriver");
+
             // Connect to Oracle Database
             con = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
 
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("SQL Error - Retreiving usename/password.");
+            System.out.println("SQL Error - Retreiving usename/password.\n" + e.getMessage());
         }
     }
 

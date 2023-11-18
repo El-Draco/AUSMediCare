@@ -14,12 +14,15 @@ public class HealthCareOfficial extends User implements AccessStudentProfile{
     public HealthCareOfficial(ResultSet resultSet, Account account) throws SQLException {
         super(resultSet, account);
     }
-    public HealthCareOfficial(Account account, boolean loggedIn) {
-        super(account, loggedIn);
+    public HealthCareOfficial(Account account, String name) {
+        super(account, name);
     }
 
-    public HealthCareOfficial(ResultSet resultSet, Account account,String name,String email) throws SQLException {
-        super(resultSet, account,name,email);
+    public HealthCareOfficial(ResultSet resultSet) throws SQLException {
+        super(resultSet);
+    }
+    public HealthCareOfficial(Account account) {
+        super(account);
     }
     public HealthCareOfficial getInstance(){
         return this;
@@ -27,10 +30,9 @@ public class HealthCareOfficial extends User implements AccessStudentProfile{
 
     public void updateInfo(User user) throws SQLException {
         HealthcareOfficialsTableManager.getInstance().UpdateRecords(
-                new ArrayList<>(List.of(new String[]{"name = '" + user.getName() +"'"
+                new ArrayList<>(List.of(new String[]{"name = '" + user.getAccount().getName() +"'"
                         ,"email = '" + user.getEmail() +"'"})),
                 new ArrayList<String>(List.of(new String[]{"id = '"
                         + user.getAccount().getId() +"'"})));
     }
-
 }
