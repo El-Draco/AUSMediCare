@@ -104,7 +104,7 @@ public class Appointment {
     }
     public Appointment(ResultSet resultSet) throws SQLException {
         this.appointmentID = resultSet.getInt("appointment_id");
-        this.healthcareofficialID = resultSet.getString("healthcareofficial_id");
+        this.healthcareofficialID = resultSet.getString("healthcareofficials_id");
         this.studentID = resultSet.getString("students_id");
         this.date = resultSet.getDate("appointment_date");
         this.appointmentType = resultSet.getBoolean("appointment_type");

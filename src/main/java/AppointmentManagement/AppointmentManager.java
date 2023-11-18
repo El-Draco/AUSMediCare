@@ -35,13 +35,13 @@ public class AppointmentManager {
             // representation of a date with the defined format.
             String dateAsString = df.format(date);
             ArrayList<String> _params =  new ArrayList<String>(List.of(new String[]{
-                    "'" + appid +"'",
+                    appid +"",
                     "'" + doctor.getAccount().getId()+"'",
                     "'" + patient.getAccount().getId() +"'",
                     "'" + dateAsString + "'",
                     "" + apptype,
                     "" + appmode,
-                    "= " + status,
+                    "" + status,
                     "'" + patient.getEid() + "'"
                     }));
             AppointmentsTableManager.getInstance().AddRecord(_params);
@@ -57,7 +57,7 @@ public class AppointmentManager {
 
     public void getAppointments(String studentId) throws SQLException {
         for(Appointment appointment : appointments){
-            if(Objects.equals(appointment.getPatient().getAccount().getId(), studentId))
+            if(appointment.getStudentID().equals(studentId))
                 System.out.println(appointment);
         }
     }

@@ -7,9 +7,10 @@ public class Account {
     private String id;
     private String name;
     private String password;
-    public Account(String _username, String _password){
+    public Account(String _id, String _password, String _username){
         name = _username;
         password = _password;
+        id = _id;
     }
     public String getName(){
         return (name);

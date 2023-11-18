@@ -9,10 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,8 +18,11 @@ class AppointmentManagerTest {
     @Test
     void scheduleAppointment() throws SQLException {
 
-        Student patient = new Student(new Account("g00087725","4297f44b13955235245b2497399d7a93"), "coe",21,0,"11111","rana");
-        HealthCareOfficial doctor = new HealthCareOfficial(new Account("g00087239","4297f44b13955235245b2497399d7a93"),"hiba");
+        Student patient = new Student(
+                new Account("g00087725","4297f44b13955235245b2497399d7a93", "rana"),
+                "coe",21,0,"11111");
+        HealthCareOfficial doctor = new HealthCareOfficial(new Account("b00087311",
+                "4297f44b13955235245b2497399d7a93", "Mohamed Alshafai"));
         Date date = new Date();
         Appointment appointment = new Appointment(1,date,0,patient, doctor, false,false);
         Schedule schedule = Schedule.getInstance();
@@ -31,13 +31,13 @@ class AppointmentManagerTest {
             DateFormat df = new SimpleDateFormat(pattern);
             String dateAsString = df.format(date);
             ArrayList<String> _params =  new ArrayList<String>(List.of(new String[]{
-                    "'" + 1 +"'",
+                    "" + (new Random()).nextInt(1000) +"",
                     "'" + doctor.getAccount().getId()+"'",
                     "'" + patient.getAccount().getId() +"'",
                     "'" + dateAsString + "'",
                     "" + 0,
                     "" + 1,
-                    "= " + 0,
+                    "" + 1,
                     "'" + patient.getEid() + "'"
             }));
             assertEquals(1,AppointmentsTableManager.getInstance().AddRecord(_params));
@@ -53,7 +53,7 @@ class AppointmentManagerTest {
         ArrayList<Appointment> appointments = AppointmentsTableManager.getInstance().GetRecords(null,null,null,null);
         StringBuilder appointment_db_result = new StringBuilder();
         for(Appointment appointment : appointments){
-            if(Objects.equals(appointment.getPatient().getAccount().getId(), studentId)) {
+            if(appointment.getStudentID().equals(studentId)) {
                 appointment_db_result.append(appointment.toString());
             }
         }

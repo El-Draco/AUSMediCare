@@ -18,8 +18,10 @@ public abstract class User {
     }
     public User(ResultSet resultSet) throws SQLException {
         this.email = resultSet.getString("user_id") + "@aus.edu";
-        this.account = new Account(resultSet.getString("name"),
-                resultSet.getString("password"));
+        this.account = new Account(
+                resultSet.getString("user_id"),
+                resultSet.getString("password"),
+                resultSet.getString("name"));
     }
 
     public User(ResultSet resultSet, Account account) throws SQLException {

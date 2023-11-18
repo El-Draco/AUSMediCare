@@ -19,15 +19,7 @@ public class Student extends User{
 
 
 
-    public Student(Account account, String major, int age, int gender, String eid, String name) {
-        super(account, name);
-        this.major = major;
-        this.age = age;
-        this.gender = gender;
-        this.eid = eid;
-    }
-
-    public Student(Account account, String major, int age, int gender, String eid) throws SQLException {
+    public Student(Account account, String major, int age, int gender, String eid) {
         super(account);
         this.major = major;
         this.age = age;
