@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class UsersTableManager extends TableManager {
     // member methods
     private UsersTableManager() {
-        super("System_Users");
+        super("SYSTEM_Users");
     }
     public Account GetRecord(ArrayList<String> params, ArrayList<String> conds) throws SQLException {
         String sql = this.ProcessSql(params, conds);
