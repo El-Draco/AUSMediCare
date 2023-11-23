@@ -28,11 +28,4 @@ public class HealthCareOfficial extends User implements AccessStudentProfile{
         return this;
     }
 
-    public void updateInfo(User user) throws SQLException {
-        HealthcareOfficialsTableManager.getInstance().UpdateRecords(
-                new ArrayList<>(List.of(new String[]{"name = '" + user.getAccount().getName() +"'"
-                        ,"email = '" + user.getEmail() +"'"})),
-                new ArrayList<String>(List.of(new String[]{"id = '"
-                        + user.getAccount().getId() +"'"})));
-    }
 }

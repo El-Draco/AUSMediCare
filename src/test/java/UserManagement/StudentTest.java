@@ -43,14 +43,4 @@ class StudentTest {
     @Test
     void setEid() {
     }
-
-    @Test
-    void updateInfo() throws SQLException {
-        Student patient = new Student(
-                new Account("g00087725","4297f44b13955235245b2497399d7a93", "rana"),
-                "coe",21,0,"11111");
-        patient.updateInfo(patient.getInstance());
-        assertEquals("rana",patient );
-
-    }
 }

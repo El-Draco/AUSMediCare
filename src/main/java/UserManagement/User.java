@@ -20,8 +20,8 @@ public abstract class User {
         this.email = resultSet.getString("user_id") + "@aus.edu";
         this.account = new Account(
                 resultSet.getString("user_id"),
-                resultSet.getString("password"),
-                resultSet.getString("name"));
+                resultSet.getString("user_password"),
+                resultSet.getString("username"));
     }
 
     public User(ResultSet resultSet, Account account) throws SQLException {
@@ -43,7 +43,7 @@ public abstract class User {
         }
         else if(StudentsTableManager.getInstance().RecordExists(new ArrayList<String>(
                 List.of(new String[]{"student_id = '" + id +"'"})))){
-            return HealthcareOfficialsTableManager.getInstance().GetRecords(null,
+            return StudentsTableManager.getInstance().GetRecords(null,
                     new ArrayList<String>(List.of(new String[]{"student_id = '" + id +"'"})), null
                     ,null).get(0);
 
@@ -79,10 +79,5 @@ public abstract class User {
                 new ArrayList<String>(List.of(new String[]{"id = '"
                         + user.getAccount().getId()+"'"})));
     };
-
-
-
-    public abstract void updateInfo(User user) throws SQLException;
-
 }
 
