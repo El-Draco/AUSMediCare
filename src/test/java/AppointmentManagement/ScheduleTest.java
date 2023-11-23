@@ -8,5 +8,6 @@ class ScheduleTest {
 
     @Test
     void checkAvailability() {
+
     }
 }

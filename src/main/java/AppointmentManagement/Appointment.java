@@ -3,7 +3,6 @@ package AppointmentManagement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class Appointment {
         this.date = date;
     }
 
-    public int isAppointmentType() {
+    public int getAppointmentType() {
         return appointmentType;
     }
 
@@ -85,7 +84,7 @@ public class Appointment {
         this.appointmentType = appointmentType;
     }
 
-    public int isAppointmentMode() {
+    public int getAppointmentMode() {
         return appointmentMode;
     }
 
