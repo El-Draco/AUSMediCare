@@ -74,44 +74,8 @@ public class StudentUI extends UserInterface{
             switch (choice) {
                 case 1:
                     //Update Profile
-                    System.out.println("Current Student Account Info:" +
-                            "\n1. Name: " + student.getAccount().getName()+
-                            "\n2. Email: " + student.getEmail()+
-                            "\n3. Emirates ID: " + student.getEid()+
-                            "\n4. Age: "+ student.getAge()+
-                            "\n5. Major: "+student.getMajor()+
-                            "\n6. Exit Update Personal Info"
-                    );
+                    displayUpdateInfo(student);
 
-                    int updatechoice;
-                    String temp;
-                    do {
-                        System.out.println(" Enter number to update information ");
-                        updatechoice = scanner.nextInt();
-                        switch (updatechoice) {
-                            case 1:
-                                System.out.println("Enter new name");
-                                student.getAccount().setName(scanner.nextLine());
-                                break;
-                            case 2:
-                                System.out.println("Enter new email");
-                                student.setEmail(scanner.nextLine());
-                                break;
-                            case 3:
-                                System.out.println("Enter new Emirates ID");
-                                student.setEid(scanner.nextLine());
-                                break;
-                            case 4:
-                                System.out.println("Enter new age");
-                                student.setAge(scanner.nextInt());
-                                break;
-                            case 5:
-                                System.out.println("Enter new major");
-                                student.setMajor(scanner.nextLine());
-                                break;
-                        }
-                    }while(updatechoice!=6);
-                    student.updateInfo(student.getInstance());
                     break;
                 case 2:
                     //Edit Medical History
@@ -119,7 +83,7 @@ public class StudentUI extends UserInterface{
                     break;
                 case 3:
                     //Submit New Sick Leave Request
-                    //student.submitRequest("Sick Leave");
+                    //student.submitRequest("Sick Leave");e
                     requestManager.submitRequest(student.getAccount().getId(),currentDate,"","sickleave",student.getEid());
                     break;
                 case 4:
@@ -204,5 +168,47 @@ public class StudentUI extends UserInterface{
                     System.out.println("Invalid choice. Please select a valid option.");
             }
         } while (choice != 13);
+    }
+
+    private void displayUpdateInfo(Student student) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Current Student Account Info:" +
+                "\n1. Name: " + student.getAccount().getName()+
+                "\n2. Email: " + student.getEmail()+
+                "\n3. Emirates ID: " + student.getEid()+
+                "\n4. Age: "+ student.getAge()+
+                "\n5. Major: "+student.getMajor()+
+                "\n6. Exit Update Personal Info"
+        );
+
+        int updatechoice;
+        String temp;
+        do {
+            System.out.println(" Enter number to update information ");
+            updatechoice = scanner.nextInt();
+            switch (updatechoice) {
+                case 1:
+                    System.out.println("Enter new name");
+                    student.getAccount().setName(scanner.nextLine());
+                    break;
+                case 2:
+                    System.out.println("Enter new email");
+                    student.setEmail(scanner.nextLine());
+                    break;
+                case 3:
+                    System.out.println("Enter new Emirates ID");
+                    student.setEid(scanner.nextLine());
+                    break;
+                case 4:
+                    System.out.println("Enter new age");
+                    student.setAge(scanner.nextInt());
+                    break;
+                case 5:
+                    System.out.println("Enter new major");
+                    student.setMajor(scanner.nextLine());
+                    break;
+            }
+        }while(updatechoice!=6);
+        student.updateInfo(student.getInstance());
     }
 }
