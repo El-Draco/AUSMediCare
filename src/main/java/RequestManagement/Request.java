@@ -118,7 +118,6 @@ public abstract class Request {
         processRequest(3);
     }
     public void submitRequest() throws SQLException {
-        //@TODO: Shafai needs to check database logic
         String pattern = "dd/MMM/yyyy";
         // Create an instance of SimpleDateFormat used for formatting
         // the string representation of date according to the chosen pattern

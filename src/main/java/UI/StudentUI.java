@@ -3,6 +3,8 @@ package UI;
 
 import AppointmentManagement.Appointment;
 import AppointmentManagement.AppointmentManager;
+import DatabaseManagement.HealthcareOfficialsTableManager;
+import DatabaseManagement.UsersTableManager;
 import RequestManagement.Request;
 import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
@@ -14,7 +16,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class StudentUI extends UserInterface{
+public class StudentUI extends UserInterface {
     Student student;
     HealthCareOfficial doctor;
     RequestManager requestManager = new RequestManager();
@@ -22,21 +24,21 @@ public class StudentUI extends UserInterface{
 
     Date currentDate;
 
-    public void statusUpdate(int status, int reqId){//1 = approved, 2 = declined, 3 = cancelled
-        if(status == 1)
-            System.out.println("Request (ID: " +reqId+" has been requested)");
-        else if(status==2)
-            System.out.println("Request (ID: " +reqId+" has been approved)");
-        else if(status == 3)
-            System.out.println("Request (ID: " +reqId+" has been declined)");
-        else if(status == 4)
-            System.out.println("Request (ID: " +reqId+" has been canceled)");
+    public void statusUpdate(int status, int reqId) {
+        if (status == 1)
+            System.out.println("Request (ID: " + reqId + " has been requested)");
+        else if (status == 2)
+            System.out.println("Request (ID: " + reqId + " has been approved)");
+        else if (status == 3)
+            System.out.println("Request (ID: " + reqId + " has been declined)");
+        else if (status == 4)
+            System.out.println("Request (ID: " + reqId + " has been canceled)");
         else
-            System.out.println("Request (ID: " +reqId+" has not been updated yet)");
+            System.out.println("Request (ID: " + reqId + " has not been updated yet)");
     }
 
     StudentUI(Student user) throws SQLException {
-            student = user;
+        student = user;
     }
 
     public Student getStudent() {
@@ -80,6 +82,7 @@ public class StudentUI extends UserInterface{
                     displayRequestsHistory();
                     break;
                 case 3:
+                    displayRequestsHistory();
                     displayCheckRequestStatus();
                     break;
                 case 4:
@@ -95,6 +98,7 @@ public class StudentUI extends UserInterface{
                     displayScheduleAppointment();
                     break;
                 case 8:
+                    displayAppointmentsHistory();
                     displayCheckAppointmentStatus();
                     break;
                 case 9:
@@ -109,7 +113,7 @@ public class StudentUI extends UserInterface{
         } while (choice != 10);
     }
 
-    private void displayScheduleAppointment() throws SQLException{
+    private void displayScheduleAppointment() throws SQLException {
         System.out.println("**************Welcome to the Schedule Appointment Page*******************\n\n");
         Scanner scanner = new Scanner(System.in);
         Date apptDate = new Date();
@@ -118,25 +122,38 @@ public class StudentUI extends UserInterface{
         int type;
         do {
             type = scanner.nextInt();
-            if(type!=1&&type!=0){
+            if (type != 1 && type != 0) {
                 System.out.println("invalid option, enter 0 for medical or 1 for therapy:");
             }
-        }while(type!=1 && type !=0);
+        } while (type != 1 && type != 0);
 
         System.out.println("\nIs the appt. in-person or online? (0:in-person, 1:online)");
         int mode;
         do {
             mode = scanner.nextInt();
-            if(mode!=1&&mode!=0){
+            if (mode != 1 && mode != 0) {
                 System.out.println("invalid option, enter 0 for in-person or 1 for online:");
             }
-        }while(mode!=1&& mode!=0);
+        } while (mode != 1 && mode != 0);
         scanner.nextLine();
-        appointmentManager.scheduleAppointment(apptDate,1, student,"b00087311", mode, type);
+
+        //retrieve list of doctors
+        ArrayList<HealthCareOfficial> doctors = HealthcareOfficialsTableManager.getInstance().GetRecords(null, null, null,null);
+        for (int i = 0; i < doctors.size(); i++){
+            System.out.println((i + 1) + "." + " " + doctors.get(i).getAccount().getName() + " - " + doctors.get(i).getAccount().getId());
+        }
+        int d = 0;
+        do {
+            System.out.println("Please choose which doctor you'd like to book: ");
+            d = scanner.nextInt();
+            if (d <= 0 || d > doctors.size())
+                System.out.println("Invalid choice.");
+        }while (d <= 0 || d > doctors.size());
+        appointmentManager.scheduleAppointment(apptDate, 1, student, doctors.get(d - 1).getAccount().getId(), mode, type);
         System.out.println("\nYour appointment has been booked successfully!");
     }
 
-    private void displayCheckAppointmentStatus() throws SQLException{
+    private void displayCheckAppointmentStatus() throws SQLException {
         System.out.println("**************Welcome to the Appointment Status Page*******************\n\n");
 
         //display all appointment ids:
@@ -174,19 +191,19 @@ public class StudentUI extends UserInterface{
         int reqId;
         do {
             reqId = scanner.nextInt();
-            if(reqId<1)
+            if (reqId < 1)
                 System.out.println("Invalid ID entered, enter valid ID >0");
-        }while(reqId<1&&reqId!=-1);
+        } while (reqId < 1 && reqId != -1);
         boolean found;
         while (reqId != -1) {
-            found=false;
+            found = false;
             for (Request reqt : requests) {
                 if (reqt.getId() == reqId) {
                     found = true;
                     statusUpdate(reqt.getStatus(), reqId);
                 }
             }
-            if (!found){
+            if (!found) {
                 System.out.println("Request not found , enter ID again\n");
             }
             System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
@@ -195,7 +212,7 @@ public class StudentUI extends UserInterface{
         scanner.nextLine();
     }
 
-    private void displaySubmitRequest(String requestType) throws SQLException{
+    private void displaySubmitRequest(String requestType) throws SQLException {
         System.out.println("**************Welcome to the Submit Request Page**********************\n\n");
 
         Scanner scanner = new Scanner(System.in);
@@ -213,7 +230,7 @@ public class StudentUI extends UserInterface{
                     form = scanner.nextLine();
                     if (form.isEmpty())
                         form = "Empty";
-                    requestManager.submitRequest(student.getAccount().getId(),currentDate,form,requestType,student.getEid());
+                    requestManager.submitRequest(student.getAccount().getId(), currentDate, form, requestType, student.getEid());
                     if (Objects.equals(requestType, "sickleave"))
                         System.out.println(" Note: Request is valid for only 7 days starting today." +
                                 "If you need a longer period of absence excused please apply again after 5 days");
@@ -232,14 +249,14 @@ public class StudentUI extends UserInterface{
 
     private void displayAppointmentsHistory() throws SQLException {
         ArrayList<Appointment> appointments = appointmentManager.getStudentAppointments(student.getAccount().getId());
-        for(Appointment appt: appointments) {
+        for (Appointment appt : appointments) {
             System.out.println(appt.toString());
         }
     }
 
     private void displayRequestsHistory() throws SQLException {
         ArrayList<Request> requests = requestManager.getStudentRequests(student.getAccount().getId());
-        for(Request rqst: requests) {
+        for (Request rqst : requests) {
             System.out.println(rqst.toString());
         }
     }

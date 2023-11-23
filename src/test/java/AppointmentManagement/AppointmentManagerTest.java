@@ -17,6 +17,10 @@ class AppointmentManagerTest {
 
     @Test
     void scheduleAppointment() throws SQLException {
+        AppointmentManager appointmentManager = new AppointmentManager();
+
+//        appointmentManager.scheduleAppointment(new Date(), 1, student, "b00087311", mode, type);
+
     }
 
     @Test
