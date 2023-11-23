@@ -43,8 +43,9 @@ public class UserInterface {
                     password = in.nextLine();
                     user = new ProxyUser().login(id, password);
                     if (user == null)
-                        break;
-                    setMenuType();
+                        System.out.println("Invalid Username or Password, redirecting to main screen...");
+                    else
+                        setMenuType();
                 }
                 case 2 -> displayEmergencyServices();
                 case 3 -> System.out.println("Exiting application...\n");

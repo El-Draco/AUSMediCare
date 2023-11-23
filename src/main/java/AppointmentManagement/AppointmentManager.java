@@ -39,8 +39,8 @@ public class AppointmentManager {
                     "'" + doctorID +"'",
                     "'" + patient.getAccount().getId() +"'",
                     "'" + dateAsString + "'",
-                    "" + apptype,
-                    "" + appmode,
+                    "" + type,
+                    "" + mode,
                     "" + status,
                     "'" + patient.getEid() + "'"
                     }));

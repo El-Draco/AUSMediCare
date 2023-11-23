@@ -114,12 +114,26 @@ public class StudentUI extends UserInterface{
         Scanner scanner = new Scanner(System.in);
         Date apptDate = new Date();
 
-        System.out.println("Is the appt. medical or therapy? (0:medical, 1:therapy)\n");
-        int type = scanner.nextInt();
-        System.out.println("Is the appt. in-person or online? (0:in-person, 1:online)\n");
-        int mode = scanner.nextInt();
+        System.out.println("Is the appt. medical or therapy? (0:medical, 1:therapy)");
+        int type;
+        do {
+            type = scanner.nextInt();
+            if(type!=1&&type!=0){
+                System.out.println("invalid option, enter 0 for medical or 1 for therapy:");
+            }
+        }while(type!=1 && type !=0);
+
+        System.out.println("\nIs the appt. in-person or online? (0:in-person, 1:online)");
+        int mode;
+        do {
+            mode = scanner.nextInt();
+            if(mode!=1&&mode!=0){
+                System.out.println("invalid option, enter 0 for in-person or 1 for online:");
+            }
+        }while(mode!=1&& mode!=0);
         scanner.nextLine();
         appointmentManager.scheduleAppointment(apptDate,1, student,"b00087311", mode, type);
+        System.out.println("\nYour appointment has been booked successfully!");
     }
 
     private void displayCheckAppointmentStatus() throws SQLException{
@@ -156,10 +170,17 @@ public class StudentUI extends UserInterface{
         int reqId;
         System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
         reqId = scanner.nextInt();
+        boolean found;
         while (reqId != -1) {
+            found=false;
             for (Request reqt : requests) {
-                if (reqt.getId() == reqId)
+                if (reqt.getId() == reqId) {
+                    found = true;
                     statusUpdate(reqt.getStatus(), reqId);
+                }
+            }
+            if (!found){
+                System.out.println("Invalid request id, enter again\n");
             }
             System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
             reqId = scanner.nextInt();
@@ -189,14 +210,14 @@ public class StudentUI extends UserInterface{
                     if (Objects.equals(requestType, "sickleave"))
                         System.out.println(" Note: Request is valid for only 7 days starting today." +
                                 "If you need a longer period of absence excused please apply again after 5 days");
-                    System.out.println("Submitting" + requestType + " request....\n");
+                    System.out.println("Submitting " + requestType + " request....\n");
                     System.out.println("Request submitted succesfully.\n");
                     break;
                 case 2:
                     System.out.println("Returning to main menu");
                     break;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("Invalid option. Please try again.\n\n");
                     break;
             }
         } while (choice != 2);

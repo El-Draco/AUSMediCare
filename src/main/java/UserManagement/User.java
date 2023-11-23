@@ -72,12 +72,6 @@ public abstract class User {
         this.email = email;
     }
 
-    public void updateCredentials(User user) throws SQLException {
-        StudentsTableManager.getInstance().UpdateRecords(
-                new ArrayList<>(List.of(new String[]{"username = '" + user.getAccount().getName() +"'"
-                        ,"password = '" + user.getAccount().getPassword() +"'"})),
-                new ArrayList<String>(List.of(new String[]{"id = '"
-                        + user.getAccount().getId()+"'"})));
-    };
+
 }
 
