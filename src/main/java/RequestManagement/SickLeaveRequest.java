@@ -15,8 +15,8 @@ public class SickLeaveRequest extends Request{
         super(resultSet);
     }
 
-    public SickLeaveRequest(int id , String studentId, Date date, String form, String type, String studentEid){
-        super(id,studentId, date, form, type,studentEid);
+    public SickLeaveRequest(int id, String studentId, Date date, String form, String type, int status, String studentEid){
+        super(id,studentId, date, form, type, status, studentEid);
     }
 
     public void notifyProfessors() throws SQLException {

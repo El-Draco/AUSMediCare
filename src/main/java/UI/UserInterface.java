@@ -46,11 +46,11 @@ public class UserInterface {
                         break;
                     setMenuType();
                 }
-                case 3 -> displayEmergencyServices();
-                case 4 -> System.out.println("Exiting application...\n");
+                case 2 -> displayEmergencyServices();
+                case 3 -> System.out.println("Exiting application...\n");
                 default -> System.out.println("Invalid choice");
             }
-        }while (choice != 4 && user == null);
+        }while (choice != 3 && user == null);
     }
 
     public void displayMenu() throws SQLException {

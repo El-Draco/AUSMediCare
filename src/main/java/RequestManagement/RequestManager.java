@@ -21,12 +21,14 @@ public class RequestManager {
         return requests;
     }
 
-    public void getRequests(String studentId) throws SQLException {
+    public ArrayList<Request> getStudentRequests(String studentId) throws SQLException {
+        retrieveRequests();
+        ArrayList<Request> _requests = new ArrayList<>();
         for(Request request : requests){
-            if(Objects.equals(request.getStudentId(), studentId))
-                System.out.println(request);
+            if(request.getStudentId().equals(studentId))
+                _requests.add(request);
         }
-        //return RequestsTableManager.getInstance().GetRecords(null, new ArrayList<String>(List.of(new String[]{"students_id = " + studentId})), null, null);
+        return _requests;
     }
 
     public void submitRequest(String studentId, Date date, String form, String type, String studentEid) throws SQLException {
@@ -36,17 +38,16 @@ public class RequestManager {
 
         Request request = null;
         if(Objects.equals(type, "sickleave"))
-            request = new SickLeaveRequest(id, studentId, date, form, type, studentEid);
+            request = new SickLeaveRequest(id, studentId, date, form, type, 1, studentEid);
 
         else if(Objects.equals(type,"referral"))
-            request = new ReferralRequest(id, studentId, date, form, type, studentEid);
+            request = new ReferralRequest(id, studentId, date, form, type, 1, studentEid);
 
         else if(Objects.equals(type,"refill"))
-            request = new PrescriptionRefillRequest(id, studentId, date, form, type, studentEid);
+            request = new PrescriptionRefillRequest(id, studentId, date, form, type, 1, studentEid);
 
         else
             System.out.println("Incorrect type input. Please try again.");
-
         if(request != null) {
             request.submitRequest();
             requests.add(request);

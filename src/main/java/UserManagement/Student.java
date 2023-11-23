@@ -14,11 +14,6 @@ public class Student extends User{
     private int gender; //0=Female, 1=Male
     private String eid;
 
-
-
-
-
-
     public Student(Account account, String major, int age, int gender, String eid) {
         super(account);
         this.major = major;

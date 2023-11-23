@@ -9,7 +9,7 @@ public class ReferralRequest extends Request{
         super(resultSet);
     }
 
-    public ReferralRequest(int id, String studentId, Date date, String form, String type, String studentEid){
-        super(id,studentId, date, form, type,studentEid);
+    public ReferralRequest(int id, String studentId, Date date, String form, String type, int status, String studentEid){
+        super(id,studentId, date, form, type, status, studentEid);
     }
 }

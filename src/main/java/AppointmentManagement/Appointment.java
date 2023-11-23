@@ -146,6 +146,8 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment ID: " + appointmentID + ", Status: " + status;
+        return "Appointment ID: " + appointmentID + ", Status: " + status
+                + ", Type: " + this.appointmentType + ", Mode: " + this.appointmentMode
+                + ", Doctor: " + this.healthcareofficialID;
     }
 }
