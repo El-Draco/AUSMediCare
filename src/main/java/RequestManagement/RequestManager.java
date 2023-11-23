@@ -2,11 +2,9 @@ package RequestManagement;
 
 import DatabaseManagement.RequestsTableManager;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -72,14 +70,14 @@ public class RequestManager {
         }
     }
 
-    public int checkRequestStatus(int id, String type) throws SQLException {
+    public int checkRequestStatus(int id) throws SQLException {
         retrieveRequests();
         for(Request request : requests){
-            if(request.getId() == id && Objects.equals(request.getType(), type)){
+            if(request.getId() == id){
                 return request.getStatus();
             }
         }
-        return -1; //request is not found, it's not the correct type, or there are no requests
+        return -1; //request is not found or there are no requests
     }
 
     public String toString(){
