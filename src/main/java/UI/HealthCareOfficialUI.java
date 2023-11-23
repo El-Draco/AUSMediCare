@@ -18,7 +18,8 @@ public class HealthCareOfficialUI extends UserInterface{
         this.healthCareOfficial = healthCareOfficial;
     }
 
-    HealthCareOfficialUI() throws SQLException {
+    HealthCareOfficialUI(HealthCareOfficial user) throws SQLException {
+        this.healthCareOfficial = user;
     }
 
     public void display() throws SQLException {
@@ -45,8 +46,7 @@ public class HealthCareOfficialUI extends UserInterface{
 
             switch (choice) {
                 case 1:
-                    if (user instanceof HealthCareOfficial) {
-                        healthCareOfficial = (HealthCareOfficial) user;
+                    if (healthCareOfficial instanceof HealthCareOfficial) {
                         healthCareOfficial.accessStudentProfile();
                     } else {
                         System.out.println("Error! Invalid Permissions");

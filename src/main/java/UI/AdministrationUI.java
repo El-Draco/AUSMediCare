@@ -10,10 +10,10 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class AdministrationUI extends UserInterface{
-    AdministrationUI() throws SQLException {
+    Administration admin;
+    AdministrationUI(Administration user) throws SQLException {
+        admin = user;
     }
-
-        Administration admin;
 
     public Administration getAdmin() {
         return admin;
