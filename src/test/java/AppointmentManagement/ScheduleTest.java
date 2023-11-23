@@ -4,13 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppointmentTest {
+class ScheduleTest {
 
     @Test
-    void updateAppointment() {
-    }
-
-    @Test
-    void cancelAppointment() {
+    void checkAvailability() {
     }
 }
