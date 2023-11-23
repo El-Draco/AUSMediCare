@@ -109,7 +109,7 @@ public abstract class Request {
         RequestsTableManager.getInstance().UpdateRecords(
                 new ArrayList<String>(List.of(new String[]{"request_status = " + status})),
                 new ArrayList<String>(List.of(new String[]{
-                        "request_id = '" + id +"'",
+                        "request_id = "+ id,
                         "students_id = '"+studentId+"'",
                         "healthcareofficials_id = '" + healthcareOfficialId + "'"})));
     }

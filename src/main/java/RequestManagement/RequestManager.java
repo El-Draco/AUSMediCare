@@ -53,6 +53,7 @@ public class RequestManager {
     }
 
     public void processRequest(int id, int status) throws SQLException {
+        retrieveRequests();
         for(Request request : requests){
             if(request.getId() == id){
                 request.processRequest(status);
@@ -62,6 +63,7 @@ public class RequestManager {
     }
 
     public void cancelRequest(int id) throws SQLException {
+        retrieveRequests();
         for(Request request : requests){
             if(request.getId() == id){
                 request.cancelRequest();

@@ -56,13 +56,13 @@ public abstract class TableManager {
         return this.getCon().executePrepared(sql);
     }
     public int DeleteRecords(ArrayList<String> conds) throws SQLException {
-        String sql = String.format("DELETE FROM %s WHERE %s",this.getTableName(), String.join(", ", conds));
+        String sql = String.format("DELETE FROM %s WHERE %s",this.getTableName(), String.join(" and ", conds));
         return this.getCon().executePrepared(sql);
     }
     public int UpdateRecords(ArrayList<String> params, ArrayList<String> conds) throws SQLException {
         String sql = String.format("UPDATE %s SET %s WHERE %s",this.getTableName(),
                 String.join(", ", params),
-                String.join(", ", conds));
+                String.join(" and ", conds));
         return this.getCon().executePrepared(sql);
     }
     public static String getMD5Hash(String input) throws NoSuchAlgorithmException {
