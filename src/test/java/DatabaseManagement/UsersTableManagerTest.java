@@ -32,6 +32,10 @@ class UsersTableManagerTest {
     @Test
     void addRecord() throws NoSuchAlgorithmException, SQLException {
         ArrayList<String> params = new ArrayList<String>(List.of(new String[]{
+                "user_id = 'b00088568'"}));
+        UsersTableManager.getInstance().DeleteRecords(params);
+
+        params = new ArrayList<String>(List.of(new String[]{
                 "'Ariel'",
                 "'b00088568'",
                 "'" + UsersTableManager.getMD5Hash("12345678") + "'"}));
