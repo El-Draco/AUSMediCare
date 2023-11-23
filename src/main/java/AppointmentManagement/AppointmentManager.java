@@ -13,8 +13,8 @@ public class AppointmentManager {
 
     ArrayList<Appointment> appointments = new ArrayList<>();
     Schedule schedule;
-    boolean apptype; //0 is for medical and 1 is for therapy
-    boolean appmode; //0 is for in-person and 1 is for online
+    int apptype; //0 is for medical and 1 is for therapy
+    int appmode; //0 is for in-person and 1 is for online
 
     Scanner scanner = new Scanner(System.in);
     public void scheduleAppointment(Date date,int status,Student patient,HealthCareOfficial doctor) throws SQLException {
@@ -23,8 +23,8 @@ public class AppointmentManager {
         if(appointments!=null) appid=appointments.size()+1;
         if(schedule.CheckAvailability(date,doctor)) {
             System.out.println("Select appointment type: ");
-            apptype = scanner.nextBoolean();
-            appmode = scanner.nextBoolean();
+            apptype = scanner.nextInt();
+            appmode = scanner.nextInt();
             Appointment appointment = new Appointment(appid,date,status,patient,doctor,apptype,appmode);
             appointments.add(appointment);
             String pattern = "dd/MMM/yyyy";

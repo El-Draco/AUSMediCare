@@ -24,7 +24,7 @@ class AppointmentManagerTest {
         HealthCareOfficial doctor = new HealthCareOfficial(new Account("b00087311",
                 "4297f44b13955235245b2497399d7a93", "Mohamed Alshafai"));
         Date date = new Date();
-        Appointment appointment = new Appointment(1,date,0,patient, doctor, false,false);
+        Appointment appointment = new Appointment(1,date,0,patient, doctor, 0,0);
         Schedule schedule = Schedule.getInstance();
         if(schedule.CheckAvailability(date,doctor)){
             String pattern = "dd/MMM/yyyy";
