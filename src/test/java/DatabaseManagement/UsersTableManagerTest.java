@@ -47,7 +47,7 @@ class UsersTableManagerTest {
                 "'Ariel'",
                 "'b00088568'",
                 "'" + UsersTableManager.getMD5Hash("12345678") + "'"}));
-       UsersTableManager.getInstance().AddRecord(params);
+        UsersTableManager.getInstance().AddRecord(params);
 
         params = new ArrayList<String>(List.of(new String[]{
                 "user_id = 'b00088568'"}));
