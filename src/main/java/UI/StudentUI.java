@@ -24,13 +24,15 @@ public class StudentUI extends UserInterface{
 
     public void statusUpdate(int status, int reqId){//1 = approved, 2 = declined, 3 = cancelled
         if(status == 1)
-            System.out.println("Request (ID: " +reqId+" has been approved.");
+            System.out.println("Request (ID: " +reqId+" has been requested)");
         else if(status==2)
-            System.out.println("Request (ID: " +reqId+" has been declined.");
+            System.out.println("Request (ID: " +reqId+" has been approved)");
         else if(status == 3)
-            System.out.println("Request (ID: " +reqId+" has been cancelled.");
+            System.out.println("Request (ID: " +reqId+" has been declined)");
+        else if(status == 4)
+            System.out.println("Request (ID: " +reqId+" has been canceled)");
         else
-            System.out.println("Request (ID: " +reqId+" has not been updated yet.");
+            System.out.println("Request (ID: " +reqId+" has not been updated yet)");
     }
 
     StudentUI(Student user) throws SQLException {
@@ -55,16 +57,14 @@ public class StudentUI extends UserInterface{
             System.out.println("\nStudent Menu:");
             System.out.println("1. View Appointments History");
             System.out.println("2. View Requests History");
-            System.out.println("3. Submit New Sick Leave Request");
-            System.out.println("4. Check Sick Leave Status");
+            System.out.println("3. Check Request Status");
+            System.out.println("4. Submit New Sick Leave Request");
             System.out.println("5. Submit Referral Request");
-            System.out.println("6. Check Referral Status");
+            System.out.println("6. Submit Prescription Refill Request");
             System.out.println("7. Schedule Appointment");
             System.out.println("8. Check Appointment Status");
-            System.out.println("9. Request Prescription Refill");
-            System.out.println("10. Check Prescription Refill Status");
-            System.out.println("11. Emergency Services");
-            System.out.println("13. Exit");
+            System.out.println("9. Emergency Services");
+            System.out.println("10. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -80,16 +80,16 @@ public class StudentUI extends UserInterface{
                     displayRequestsHistory();
                     break;
                 case 3:
-                    displaySubmitRequest("sickleave");
+                    displayCheckRequestStatus();
                     break;
                 case 4:
-                    displayCheckRequestStatus("sickleave");
+                    displaySubmitRequest("sickleave");
                     break;
                 case 5:
                     displaySubmitRequest("referral");
                     break;
                 case 6:
-                    displayCheckRequestStatus("referral");
+                    displaySubmitRequest("refill");
                     break;
                 case 7:
                     displayScheduleAppointment();
@@ -98,23 +98,15 @@ public class StudentUI extends UserInterface{
                     displayCheckAppointmentStatus();
                     break;
                 case 9:
-                    displaySubmitRequest("refill");
-                    break;
-                case 10:
-                    displayCheckRequestStatus("refill");
-                    break;
-                case 11:
                     displayEmergencyServices();
                     break;
-                case 12:
-
-                case 13:
+                case 10:
                     System.out.println("Exiting Student Menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
-        } while (choice != 13);
+        } while (choice != 10);
     }
 
     private void displayScheduleAppointment() throws SQLException{
@@ -123,10 +115,11 @@ public class StudentUI extends UserInterface{
         Date apptDate = new Date();
 
         System.out.println("Is the appt. medical or therapy? (0:medical, 1:therapy)\n");
-        scanner.nextInt();
+        int type = scanner.nextInt();
         System.out.println("Is the appt. in-person or online? (0:in-person, 1:online)\n");
-        scanner.nextInt();
-        appointmentManager.scheduleAppointment(apptDate,0,student,doctor);
+        int mode = scanner.nextInt();
+        scanner.nextLine();
+        appointmentManager.scheduleAppointment(apptDate,1, student,"b00087311", mode, type);
     }
 
     private void displayCheckAppointmentStatus() throws SQLException{
@@ -155,20 +148,23 @@ public class StudentUI extends UserInterface{
         } while (appointmentId != -1);
     }
 
-    private void displayCheckRequestStatus(String requestType) throws SQLException {
+    private void displayCheckRequestStatus() throws SQLException {
         System.out.println("**************Welcome to the Check Request Status Page*******************\n\n");
         //display request ids here:
-        requestManager.getStudentRequests(getStudent().getAccount().getId());
+        ArrayList<Request> requests = requestManager.getStudentRequests(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
-        int reqId, reqStatus;
-        do {
+        int reqId;
+        System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
+        reqId = scanner.nextInt();
+        while (reqId != -1) {
+            for (Request reqt : requests) {
+                if (reqt.getId() == reqId)
+                    statusUpdate(reqt.getStatus(), reqId);
+            }
             System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
             reqId = scanner.nextInt();
-            if (reqId == -1)
-                break;
-            reqStatus = requestManager.checkRequestStatus(reqId, requestType);
-            statusUpdate(reqStatus,reqId);
-        } while (reqId != -1);
+        }
+        scanner.nextLine();
     }
 
     private void displaySubmitRequest(String requestType) throws SQLException{

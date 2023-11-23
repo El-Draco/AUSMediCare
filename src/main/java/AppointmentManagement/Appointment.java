@@ -93,12 +93,12 @@ public class Appointment {
         this.appointmentMode = appointmentMode;
     }
 
-    Appointment(int appointmentID, Date date, int status, Student patient, HealthCareOfficial doctor, int appointmentType, int appointmentMode ){
+    Appointment(int appointmentID, Date date, int status, Student patient, String doctorID, int appointmentType, int appointmentMode ){
         this.appointmentID=appointmentID;
         this.date=date;
         this.status=status;
         this.patient=patient;
-        this.doctor=doctor;
+        this.healthcareofficialID = doctorID;
         this.appointmentMode=appointmentMode;
         this.appointmentType=appointmentType;
     }
@@ -110,6 +110,7 @@ public class Appointment {
         this.appointmentType = resultSet.getInt("appointment_type");
         this.appointmentMode = resultSet.getInt("appointment_mode");
         this.appointmentType = resultSet.getInt("appointment_type");
+        this.status = resultSet.getInt("appointment_status");
         this.studentEID = resultSet.getString("students_eid");
     }
 

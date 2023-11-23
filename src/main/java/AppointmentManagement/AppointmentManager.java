@@ -15,17 +15,17 @@ public class AppointmentManager {
     Schedule schedule;
     int apptype; //0 is for medical and 1 is for therapy
     int appmode; //0 is for in-person and 1 is for online
-
+    public AppointmentManager() {
+        schedule = new Schedule();
+    }
     Scanner scanner = new Scanner(System.in);
-    public void scheduleAppointment(Date date,int status,Student patient,HealthCareOfficial doctor) throws SQLException {
+    public void scheduleAppointment(Date date, int status, Student patient, String doctorID, int mode, int type) throws SQLException {
         retrieveAppointments();
         int appid = 0;
         if(appointments!=null) appid=appointments.size()+1;
-        if(schedule.CheckAvailability(date,doctor)) {
-            System.out.println("Select appointment type: ");
-            apptype = scanner.nextInt();
-            appmode = scanner.nextInt();
-            Appointment appointment = new Appointment(appid,date,status,patient,doctor,apptype,appmode);
+        if(schedule.CheckAvailability(date,doctorID)) {
+
+            Appointment appointment = new Appointment(appid, date, status, patient, doctorID, type, mode);
             appointments.add(appointment);
             String pattern = "dd/MMM/yyyy";
             // Create an instance of SimpleDateFormat used for formatting
@@ -36,7 +36,7 @@ public class AppointmentManager {
             String dateAsString = df.format(date);
             ArrayList<String> _params =  new ArrayList<String>(List.of(new String[]{
                     appid +"",
-                    "'" + doctor.getAccount().getId()+"'",
+                    "'" + doctorID +"'",
                     "'" + patient.getAccount().getId() +"'",
                     "'" + dateAsString + "'",
                     "" + apptype,
@@ -65,8 +65,9 @@ public class AppointmentManager {
         return stdAppts;
     }
 
-    public int checkAppointmentStatus(int aid){
+    public int checkAppointmentStatus(int aid) throws SQLException {
         int status = 0;
+        retrieveAppointments();
         for (Appointment appointment : appointments) {
             if (appointment.getAppointmentID() == aid)
                 status = appointment.getStatus();
