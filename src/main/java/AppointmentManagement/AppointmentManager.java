@@ -15,15 +15,23 @@ public class AppointmentManager {
     Schedule schedule;
     int apptype; //0 is for medical and 1 is for therapy
     int appmode; //0 is for in-person and 1 is for online
-    public AppointmentManager() {
+
+    private AppointmentManager() {
         schedule = new Schedule();
     }
-    Scanner scanner = new Scanner(System.in);
+    private static AppointmentManager instance;
+
+    public static AppointmentManager getInstance() {
+        if (instance == null)
+            instance = new AppointmentManager();
+        return instance;
+    }
+
     public void scheduleAppointment(Date date, int status, Student patient, String doctorID, int mode, int type) throws SQLException {
         retrieveAppointments();
         int appid = 0;
-        if(appointments!=null) appid=appointments.size()+1;
-        if(schedule.CheckAvailability(date, doctorID)) {
+        if (appointments != null) appid = appointments.size() + 1;
+        if (schedule.CheckAvailability(date, doctorID)) {
 
             Appointment appointment = new Appointment(appid, date, status, patient, doctorID, type, mode);
             appointments.add(appointment);
@@ -34,21 +42,21 @@ public class AppointmentManager {
             // Using DateFormat format method we can create a string
             // representation of a date with the defined format.
             String dateAsString = df.format(date);
-            ArrayList<String> _params =  new ArrayList<String>(List.of(new String[]{
-                    appid +"",
-                    "'" + doctorID +"'",
-                    "'" + patient.getAccount().getId() +"'",
+            ArrayList<String> _params = new ArrayList<String>(List.of(new String[]{
+                    appid + "",
+                    "'" + doctorID + "'",
+                    "'" + patient.getAccount().getId() + "'",
                     "'" + dateAsString + "'",
                     "" + type,
                     "" + mode,
                     "" + status,
                     "'" + patient.getEid() + "'"
-                    }));
+            }));
             AppointmentsTableManager.getInstance().AddRecord(_params);
-        }
-        else
+        } else
             System.out.println("Appointment is not available");
     }
+
     public ArrayList<Appointment> retrieveAppointments() throws SQLException {
         appointments = AppointmentsTableManager.getInstance().GetRecords(null,
                 null, null, null);
@@ -58,8 +66,8 @@ public class AppointmentManager {
     public ArrayList<Appointment> getStudentAppointments(String studentId) throws SQLException {
         retrieveAppointments();
         ArrayList<Appointment> stdAppts = new ArrayList<>();
-        for(Appointment appointment : appointments){
-            if(appointment.getStudentID().equals(studentId))
+        for (Appointment appointment : appointments) {
+            if (appointment.getStudentID().equals(studentId))
                 stdAppts.add(appointment);
         }
         return stdAppts;

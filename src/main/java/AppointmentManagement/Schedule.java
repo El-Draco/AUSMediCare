@@ -21,7 +21,7 @@ public class Schedule {
 
     boolean CheckAvailability(Date d, String doctorID) throws SQLException {
         boolean availdate = true;
-        appointments = (new AppointmentManager()).retrieveAppointments();
+        AppointmentManager.getInstance().retrieveAppointments();
         for (Appointment appointment : appointments) {
             if (appointment.getDate() == d) {
                 availdate = false;

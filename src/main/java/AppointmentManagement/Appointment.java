@@ -14,8 +14,7 @@ public class Appointment {
 
     private Student patient;
     private String studentID;
-    private String healthcareofficialID;
-
+    private String healthCareOfficialId;
     private String studentEID;
     private HealthCareOfficial doctor;
     private int appointmentID;
@@ -40,12 +39,12 @@ public class Appointment {
         this.studentID = studentID;
     }
 
-    public String getHealthcareofficialID() {
-        return healthcareofficialID;
+    public String getHealthCareOfficialID() {
+        return healthCareOfficialId;
     }
 
-    public void setHealthcareofficialID(String healthcareofficialID) {
-        this.healthcareofficialID = healthcareofficialID;
+    public void setHealthCareOfficialId(String healthcareofficialID) {
+        this.healthCareOfficialId = healthcareofficialID;
     }
 
     public String getStudentEID() {
@@ -97,13 +96,13 @@ public class Appointment {
         this.date=date;
         this.status=status;
         this.patient=patient;
-        this.healthcareofficialID = doctorID;
+        this.healthCareOfficialId = doctorID;
         this.appointmentMode=appointmentMode;
         this.appointmentType=appointmentType;
     }
     public Appointment(ResultSet resultSet) throws SQLException {
         this.appointmentID = resultSet.getInt("appointment_id");
-        this.healthcareofficialID = resultSet.getString("healthcareofficials_id");
+        this.healthCareOfficialId = resultSet.getString("healthcareofficials_id");
         this.studentID = resultSet.getString("students_id");
         this.date = resultSet.getDate("appointment_date");
         this.appointmentType = resultSet.getInt("appointment_type");
@@ -148,6 +147,6 @@ public class Appointment {
     public String toString() {
         return "Appointment ID: " + appointmentID + ", Status: " + status
                 + ", Type: " + this.appointmentType + ", Mode: " + this.appointmentMode
-                + ", Doctor: " + this.healthcareofficialID;
+                + ", Doctor: " + this.healthCareOfficialId;
     }
 }

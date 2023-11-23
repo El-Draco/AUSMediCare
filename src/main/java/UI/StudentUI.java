@@ -20,7 +20,7 @@ public class StudentUI extends UserInterface {
     Student student;
     HealthCareOfficial doctor;
     RequestManager requestManager = new RequestManager();
-    AppointmentManager appointmentManager = new AppointmentManager();
+//    AppointmentManager appointmentManager = new AppointmentManager();
 
     Date currentDate;
 
@@ -149,7 +149,7 @@ public class StudentUI extends UserInterface {
             if (d <= 0 || d > doctors.size())
                 System.out.println("Invalid choice.");
         }while (d <= 0 || d > doctors.size());
-        appointmentManager.scheduleAppointment(apptDate, 1, student, doctors.get(d - 1).getAccount().getId(), mode, type);
+        AppointmentManager.getInstance().scheduleAppointment(apptDate, 1, student, doctors.get(d - 1).getAccount().getId(), mode, type);
         System.out.println("\nYour appointment has been booked successfully!");
     }
 
@@ -157,7 +157,7 @@ public class StudentUI extends UserInterface {
         System.out.println("**************Welcome to the Appointment Status Page*******************\n\n");
 
         //display all appointment ids:
-        appointmentManager.getStudentAppointments(getStudent().getAccount().getId());
+        AppointmentManager.getInstance().getStudentAppointments(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
         int appointmentId, appointmentStatus;
         do {
@@ -167,7 +167,7 @@ public class StudentUI extends UserInterface {
 
             if (appointmentId == -1)
                 break;
-            appointmentStatus = appointmentManager.checkAppointmentStatus(appointmentId);
+            appointmentStatus = AppointmentManager.getInstance().checkAppointmentStatus(appointmentId);
             System.out.println("Appointment status is: " + appointmentStatus);
             //1: booked, 2: done, 3: cancelled
             if (appointmentStatus == 1)
@@ -248,7 +248,7 @@ public class StudentUI extends UserInterface {
     }
 
     private void displayAppointmentsHistory() throws SQLException {
-        ArrayList<Appointment> appointments = appointmentManager.getStudentAppointments(student.getAccount().getId());
+        ArrayList<Appointment> appointments = AppointmentManager.getInstance().getStudentAppointments(student.getAccount().getId());
         for (Appointment appt : appointments) {
             System.out.println(appt.toString());
         }
