@@ -23,7 +23,7 @@ public class AppointmentManager {
         retrieveAppointments();
         int appid = 0;
         if(appointments!=null) appid=appointments.size()+1;
-        if(schedule.CheckAvailability(date,doctorID)) {
+        if(schedule.CheckAvailability(date, doctorID)) {
 
             Appointment appointment = new Appointment(appid, date, status, patient, doctorID, type, mode);
             appointments.add(appointment);
