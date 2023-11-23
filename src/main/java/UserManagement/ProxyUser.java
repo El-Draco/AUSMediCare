@@ -41,7 +41,7 @@ public class ProxyUser extends User {
         // if the user's credentials are correct
         if (UsersTableManager.getInstance().RecordExists(new ArrayList<String>(List.of(new String[]{
                 "user_id = '" + id +"'",
-                "password = '" + UsersTableManager.getMD5Hash(password) +"'"}))))
+                "user_password = '" + UsersTableManager.getMD5Hash(password) +"'"}))))
         {
             // retrieve the user
             user = User.login(id);
