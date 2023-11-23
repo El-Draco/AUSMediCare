@@ -66,16 +66,4 @@ public class Student extends User{
         this.eid = eid;
     }
 
-
-    public void updateInfo(User user) throws SQLException {
-        Student student=(Student)user;
-        StudentsTableManager.getInstance().UpdateRecords(
-                new ArrayList<>(List.of(new String[]{"name = '" + student.getAccount().getName() +"'"
-                        ,"email = '" + student.getEmail() +"'","eid = '" + student.eid+"'"
-                        ,"major = '" + student.major
-                        ,"Age = '" + student.age+"'","gender = '" + student.gender+"'"})),
-                new ArrayList<String>(List.of(new String[]{"id = '"
-                        + student.getAccount().getId()+"'"})));
-    }
-
 }

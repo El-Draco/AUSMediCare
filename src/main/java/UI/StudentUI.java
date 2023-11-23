@@ -49,18 +49,17 @@ public class StudentUI extends UserInterface{
 
         do {
             System.out.println("\nStudent Menu:");
-            System.out.println("1. Update Personal Info");
-            System.out.println("2. Edit Medical History");
-            System.out.println("3. Submit New Sick Leave Request");
-            System.out.println("4. Check Sick Leave Status");
-            System.out.println("5. Submit Referral Request");
-            System.out.println("6. Check Referral Status");
-            System.out.println("7. Schedule Appointment");
-            System.out.println("8. Check Appointment Status");
-            System.out.println("9. Request Prescription Refill");
-            System.out.println("10. Check Prescription Refill Status");
-            System.out.println("11. Emergency Services");
-            System.out.println("12. Exit");
+            System.out.println("1. Edit Medical History");
+            System.out.println("2. Submit New Sick Leave Request");
+            System.out.println("3. Check Sick Leave Status");
+            System.out.println("4. Submit Referral Request");
+            System.out.println("5. Check Referral Status");
+            System.out.println("6. Schedule Appointment");
+            System.out.println("7. Check Appointment Status");
+            System.out.println("8. Request Prescription Refill");
+            System.out.println("9. Check Prescription Refill Status");
+            System.out.println("10. Emergency Services");
+            System.out.println("11. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -70,45 +69,42 @@ public class StudentUI extends UserInterface{
 
             switch (choice) {
                 case 1:
-                    displayUpdateProfile();
-                    break;
-                case 2:
                     System.out.println("Feature not yet implemented! Please wait for the next feature update.");
                     break;
-                case 3:
+                case 2:
                     displaySubmitRequest("sickleave");
                     break;
-                case 4:
+                case 3:
                     displayCheckRequestStatus("sickleave");
                     break;
-                case 5:
+                case 4:
                     displaySubmitRequest("referral");
                     break;
-                case 6:
+                case 5:
                     displayCheckRequestStatus("referral");
                     break;
-                case 7:
+                case 6:
                     displayScheduleAppointment();
                     break;
-                case 8:
+                case 7:
                     displayCheckAppointmentStatus();
                     break;
-                case 9:
+                case 8:
                     displaySubmitRequest("refill");
                     break;
-                case 10:
+                case 9:
                     displayCheckRequestStatus("refill");
                     break;
-                case 11:
+                case 10:
                     displayEmergencyServices();
                     break;
-                case 12:
+                case 11:
                     System.out.println("Exiting Student Menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
-        } while (choice != 12);
+        } while (choice != 11);
     }
 
     private void displayScheduleAppointment() throws SQLException{
@@ -193,46 +189,5 @@ public class StudentUI extends UserInterface{
             }
         } while (choice != 2);
     }
-    private void displayUpdateProfile() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Current Student Account Info:" +
-                "\n1. Name: " + student.getAccount().getName()+
-                "\n2. Email: " + student.getEmail()+
-                "\n3. Emirates ID: " + student.getEid()+
-                "\n4. Age: "+ student.getAge()+
-                "\n5. Major: "+student.getMajor()+
-                "\n6. Exit Update Personal Info"
-        );
-
-        int updatechoice;
-        String temp;
-        do {
-            System.out.println(" Enter number to update information ");
-            updatechoice = scanner.nextInt();
-            switch (updatechoice) {
-                case 1:
-                    System.out.println("Enter new name");
-                    student.getAccount().setName(scanner.nextLine());
-                    break;
-                case 2:
-                    System.out.println("Enter new email");
-                    student.setEmail(scanner.nextLine());
-                    break;
-                case 3:
-                    System.out.println("Enter new Emirates ID");
-                    student.setEid(scanner.nextLine());
-                    break;
-                case 4:
-                    System.out.println("Enter new age");
-                    student.setAge(scanner.nextInt());
-                    break;
-                case 5:
-                    System.out.println("Enter new major");
-                    student.setMajor(scanner.nextLine());
-                    break;
-            }
-        }while(updatechoice!=6);
-        student.updateInfo(student.getInstance());
-    }
 }

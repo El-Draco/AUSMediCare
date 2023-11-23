@@ -63,56 +63,9 @@ public class AdministrationUI extends UserInterface{
                     displayEmergencyServices();
                     break;
                 case 5:
-                    //updateInfo
-                    System.out.println("Current Student Account Info:" +
-                            "\n1. Name: " + admin.getAccount().getName()+
-                            "\n2. Email: " + admin.getEmail()+
-                            "\n3. Exit Update Personal Info"
-                    );
-
-                    int updatechoice;
-                    String temp;
-                    do {
-                        System.out.println(" Enter number to update information ");
-                        updatechoice = scanner.nextInt();
-                        switch (updatechoice) {
-                            case 1:
-                                System.out.println("Enter new name");
-                                admin.getAccount().setName(scanner.nextLine());
-                                break;
-                            case 2:
-                                System.out.println("Enter new email");
-                                admin.setEmail(scanner.nextLine());
-                                break;
-
-                        }
-                    }while(updatechoice!=3);
-                    admin.updateInfo(admin.getInstance());
                     break;
                 case 6:
-                    //update credentials
-                    System.out.println("Current Student Account Info:" +
-                            "\n1. Change Username: " + admin.getAccount().getName()+
-                            "\n2. Change Password " +
-                            "\n3. Exit Update Credentials"
-                    );
 
-                    int credschoice;
-                    do {
-                        System.out.println(" Enter number to update information ");
-                        credschoice = scanner.nextInt();
-                        switch (credschoice) {
-                            case 1:
-                                System.out.println("Enter new username");
-                                admin.getAccount().setName(scanner.nextLine());
-                                break;
-                            case 2:
-                                System.out.println("Enter new password");
-                                admin.getAccount().setPassword(scanner.nextLine());
-                                break;
-                        }
-                    }while(credschoice!=3);
-                    admin.updateCredentials(admin.getInstance());
                     break;
                 case 7:
                     System.out.println("Exiting Administration Menu...");

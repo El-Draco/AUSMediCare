@@ -79,10 +79,5 @@ public abstract class User {
                 new ArrayList<String>(List.of(new String[]{"id = '"
                         + user.getAccount().getId()+"'"})));
     };
-
-
-
-    public abstract void updateInfo(User user) throws SQLException;
-
 }
 

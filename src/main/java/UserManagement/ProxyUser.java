@@ -50,9 +50,6 @@ public class ProxyUser extends User {
         return user;
     }
 
-    @Override
-    public void updateInfo(User user) throws SQLException {}//no implementation
-
     public void enterCredentials(){};//no implementation
 
 }
