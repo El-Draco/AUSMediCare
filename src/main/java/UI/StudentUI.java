@@ -145,7 +145,9 @@ public class StudentUI extends UserInterface{
         int appointmentId, appointmentStatus;
         do {
             System.out.println("Enter an appointment ID to check. Enter -1 to exit.\n");
+
             appointmentId = scanner.nextInt();
+
             if (appointmentId == -1)
                 break;
             appointmentStatus = appointmentManager.checkAppointmentStatus(appointmentId);
@@ -167,9 +169,14 @@ public class StudentUI extends UserInterface{
         //display request ids here:
         ArrayList<Request> requests = requestManager.getStudentRequests(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
-        int reqId;
+
         System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
-        reqId = scanner.nextInt();
+        int reqId;
+        do {
+            reqId = scanner.nextInt();
+            if(reqId<1)
+                System.out.println("Invalid ID entered, enter valid ID >0");
+        }while(reqId<1&&reqId!=-1);
         boolean found;
         while (reqId != -1) {
             found=false;
@@ -180,7 +187,7 @@ public class StudentUI extends UserInterface{
                 }
             }
             if (!found){
-                System.out.println("Invalid request id, enter again\n");
+                System.out.println("Request not found , enter ID again\n");
             }
             System.out.print("Enter a request ID to check. Enter -1 to exit.\n");
             reqId = scanner.nextInt();
