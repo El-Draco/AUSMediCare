@@ -55,15 +55,15 @@ public class UserInterface {
 
     public void displayMenu() throws SQLException {
         switch (menuType) {
-            case "Student" -> {
+            case "student" -> {
                 StudentUI studentMenu = new StudentUI((Student)user);
                 studentMenu.display();
             }
-            case "HealthcareOfficial" -> {
+            case "healthcareofficial" -> {
                 HealthCareOfficialUI healthcareMenu = new HealthCareOfficialUI((HealthCareOfficial) user);
                 healthcareMenu.display();
             }
-            case "Administration" -> {
+            case "administration" -> {
                 AdministrationUI adminMenu = new AdministrationUI((Administration)user);
                 adminMenu.display();
             }
@@ -84,6 +84,6 @@ public class UserInterface {
         else if (user instanceof Administration)
             menuType = "administration";
         else
-            menuType = "HealthcareOfficial";
+            menuType = "healthcareofficial";
     }
 }
