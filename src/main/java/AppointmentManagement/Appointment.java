@@ -22,8 +22,8 @@ public class Appointment {
     private int appointmentID;
     private int status; //1 = booked, 2 = done, 3 = cancelled
     private Date date;
-    private boolean appointmentType; //0 is for medical and 1 is for therapy
-    private boolean appointmentMode; //0 is for in-person and 1 is for online
+    private int appointmentType; //0 is for medical and 1 is for therapy
+    private int appointmentMode; //0 is for in-person and 1 is for online
 
     public Student getPatient() {
         return patient;
@@ -77,23 +77,23 @@ public class Appointment {
         this.date = date;
     }
 
-    public boolean isAppointmentType() {
+    public int isAppointmentType() {
         return appointmentType;
     }
 
-    public void setAppointmentType(boolean appointmentType) {
+    public void setAppointmentType(int appointmentType) {
         this.appointmentType = appointmentType;
     }
 
-    public boolean isAppointmentMode() {
+    public int isAppointmentMode() {
         return appointmentMode;
     }
 
-    public void setAppointmentMode(boolean appointmentMode) {
+    public void setAppointmentMode(int appointmentMode) {
         this.appointmentMode = appointmentMode;
     }
 
-    Appointment(int appointmentID, Date date, int status, Student patient, HealthCareOfficial doctor, boolean appointmentType, boolean appointmentMode ){
+    Appointment(int appointmentID, Date date, int status, Student patient, HealthCareOfficial doctor, int appointmentType, int appointmentMode ){
         this.appointmentID=appointmentID;
         this.date=date;
         this.status=status;
@@ -107,9 +107,9 @@ public class Appointment {
         this.healthcareofficialID = resultSet.getString("healthcareofficials_id");
         this.studentID = resultSet.getString("students_id");
         this.date = resultSet.getDate("appointment_date");
-        this.appointmentType = resultSet.getBoolean("appointment_type");
-        this.appointmentMode = resultSet.getBoolean("appointment_mode");
-        this.appointmentType = resultSet.getBoolean("appointment_type");
+        this.appointmentType = resultSet.getInt("appointment_type");
+        this.appointmentMode = resultSet.getInt("appointment_mode");
+        this.appointmentType = resultSet.getInt("appointment_type");
         this.studentEID = resultSet.getString("students_eid");
     }
 

@@ -19,7 +19,7 @@ public class Account {
         return (password);
     }
     public Account(ResultSet resultSet) throws SQLException {
-        this.name = resultSet.getString("name");
+        this.name = resultSet.getString("username");
         this.password = resultSet.getString("user_password");
         this.id = resultSet.getString("user_id");
     }
