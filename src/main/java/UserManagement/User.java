@@ -20,7 +20,7 @@ public abstract class User {
         this.email = resultSet.getString("user_id") + "@aus.edu";
         this.account = new Account(
                 resultSet.getString("user_id"),
-                resultSet.getString("password"),
+                resultSet.getString("user_password"),
                 resultSet.getString("name"));
     }
 
