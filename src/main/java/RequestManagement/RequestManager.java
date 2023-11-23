@@ -72,7 +72,8 @@ public class RequestManager {
         }
     }
 
-    public int checkRequestStatus(int id, String type){
+    public int checkRequestStatus(int id, String type) throws SQLException {
+        retrieveRequests();
         for(Request request : requests){
             if(request.getId() == id && Objects.equals(request.getType(), type)){
                 return request.getStatus();

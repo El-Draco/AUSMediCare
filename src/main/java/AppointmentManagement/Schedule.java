@@ -19,9 +19,9 @@ public class Schedule {
         return instance;
     }
 
-    boolean CheckAvailability(Date d, HealthCareOfficial doctor) {
-        boolean availdate = true, availdoctor = true;
-
+    boolean CheckAvailability(Date d, String doctorID) throws SQLException {
+        boolean availdate = true;
+        appointments = (new AppointmentManager()).retrieveAppointments();
         for (Appointment appointment : appointments) {
             if (appointment.getDate() == d) {
                 availdate = false;
@@ -29,13 +29,7 @@ public class Schedule {
             }
         }
 
-        for (HealthCareOfficial official : doctors) {
-            if (Objects.equals(official.getAccount().getId(), doctor.getAccount().getId())) {
-                availdoctor = false;
-                break;
-            }
-        }
-        return availdoctor && availdate;
+        return availdate;
     }
 }
 
