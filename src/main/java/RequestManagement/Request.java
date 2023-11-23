@@ -83,13 +83,14 @@ public abstract class Request {
         this.studentEid = studentEid;
     }
 
-    public Request(int id, String studentId, Date date, String form, String type, String studentEid) {
+    public Request(int id, String studentId, Date date, String form, String type, int status, String studentEid) {
         this.id = id;
         //this.healthcareOfficialId = healthcareOfficialId;
         this.studentId = studentId;
         this.date = date;
         this.form = form;
         this.type = type;
+        this.status = status;
         this.studentEid = studentEid;
     }
 
@@ -97,9 +98,10 @@ public abstract class Request {
         this.id = resultSet.getInt("request_id");
         this.healthcareOfficialId = resultSet.getString("healthcareofficials_id");
         this.studentId = resultSet.getString("students_id");
-        this.date = resultSet.getDate("date");
-        this.form = resultSet.getString("form");
+        this.date = resultSet.getDate("request_date");
+        this.form = resultSet.getString("request_form");
         this.type = resultSet.getString("request_type");
+        this.status = resultSet.getInt("request_status");
         this.studentEid = resultSet.getString("students_eid");
     }
 
@@ -128,18 +130,20 @@ public abstract class Request {
         RequestsTableManager.getInstance().AddRecord(
                 new ArrayList<String>(List.of(new String[]{
                         "'" + id +"'",
-                        "'" + healthcareOfficialId + "'",
+                        "'b00087311'",
                         "'" + studentId+"'",
-                        type + "",
                         "'" + dateAsString + "'",
                         "'" + form + "'",
                         "'" + type + "'",
+                        status + "",
                         "'" + studentEid + "'"
                         })));
     }
     @Override
     public String toString(){
-        return "Request ID: " + id+ ", Status: "+ status;
+        return "Request ID: " + id+ ", Status: "+ status
+                + ", Type: " + this.type + ", Date: " + this.date
+                + "\nForm: " + this.form;
     }
 
 

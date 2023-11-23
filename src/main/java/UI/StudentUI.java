@@ -1,13 +1,17 @@
 package UI;
 
 
+import AppointmentManagement.Appointment;
 import AppointmentManagement.AppointmentManager;
+import RequestManagement.Request;
 import RequestManagement.RequestManager;
 import UserManagement.HealthCareOfficial;
 import UserManagement.Student;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class StudentUI extends UserInterface{
@@ -49,17 +53,18 @@ public class StudentUI extends UserInterface{
 
         do {
             System.out.println("\nStudent Menu:");
-            System.out.println("1. Edit Medical History");
-            System.out.println("2. Submit New Sick Leave Request");
-            System.out.println("3. Check Sick Leave Status");
-            System.out.println("4. Submit Referral Request");
-            System.out.println("5. Check Referral Status");
-            System.out.println("6. Schedule Appointment");
-            System.out.println("7. Check Appointment Status");
-            System.out.println("8. Request Prescription Refill");
-            System.out.println("9. Check Prescription Refill Status");
-            System.out.println("10. Emergency Services");
-            System.out.println("11. Exit");
+            System.out.println("1. View Appointments History");
+            System.out.println("2. View Requests History");
+            System.out.println("3. Submit New Sick Leave Request");
+            System.out.println("4. Check Sick Leave Status");
+            System.out.println("5. Submit Referral Request");
+            System.out.println("6. Check Referral Status");
+            System.out.println("7. Schedule Appointment");
+            System.out.println("8. Check Appointment Status");
+            System.out.println("9. Request Prescription Refill");
+            System.out.println("10. Check Prescription Refill Status");
+            System.out.println("11. Emergency Services");
+            System.out.println("13. Exit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -69,42 +74,47 @@ public class StudentUI extends UserInterface{
 
             switch (choice) {
                 case 1:
-                    System.out.println("Feature not yet implemented! Please wait for the next feature update.");
+                    displayAppointmentsHistory();
                     break;
                 case 2:
-                    displaySubmitRequest("sickleave");
+                    displayRequestsHistory();
                     break;
                 case 3:
-                    displayCheckRequestStatus("sickleave");
+                    displaySubmitRequest("sickleave");
                     break;
                 case 4:
-                    displaySubmitRequest("referral");
+                    displayCheckRequestStatus("sickleave");
                     break;
                 case 5:
-                    displayCheckRequestStatus("referral");
+                    displaySubmitRequest("referral");
                     break;
                 case 6:
-                    displayScheduleAppointment();
+                    displayCheckRequestStatus("referral");
                     break;
                 case 7:
-                    displayCheckAppointmentStatus();
+                    displayScheduleAppointment();
                     break;
                 case 8:
-                    displaySubmitRequest("refill");
+                    displayCheckAppointmentStatus();
                     break;
                 case 9:
-                    displayCheckRequestStatus("refill");
+                    displaySubmitRequest("refill");
                     break;
                 case 10:
-                    displayEmergencyServices();
+                    displayCheckRequestStatus("refill");
                     break;
                 case 11:
+                    displayEmergencyServices();
+                    break;
+                case 12:
+
+                case 13:
                     System.out.println("Exiting Student Menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
-        } while (choice != 11);
+        } while (choice != 13);
     }
 
     private void displayScheduleAppointment() throws SQLException{
@@ -123,7 +133,7 @@ public class StudentUI extends UserInterface{
         System.out.println("**************Welcome to the Appointment Status Page*******************\n\n");
 
         //display all appointment ids:
-        appointmentManager.getAppointments(getStudent().getAccount().getId());
+        appointmentManager.getStudentAppointments(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
         int appointmentId, appointmentStatus;
         do {
@@ -148,7 +158,7 @@ public class StudentUI extends UserInterface{
     private void displayCheckRequestStatus(String requestType) throws SQLException {
         System.out.println("**************Welcome to the Check Request Status Page*******************\n\n");
         //display request ids here:
-        requestManager.getRequests(getStudent().getAccount().getId());
+        requestManager.getStudentRequests(getStudent().getAccount().getId());
         Scanner scanner = new Scanner(System.in);
         int reqId, reqStatus;
         do {
@@ -166,15 +176,21 @@ public class StudentUI extends UserInterface{
 
         Scanner scanner = new Scanner(System.in);
         int choice;
+        String form;
         do {
             System.out.println("Please choose an option: \n");
             System.out.println("1. Submit a " + requestType + " Request.");
             System.out.println("2. Exit");
             choice = scanner.nextInt();
+            scanner.nextLine();
             switch (choice) {
                 case 1:
-                    requestManager.submitRequest(student.getAccount().getId(),currentDate,"",requestType,student.getEid());
-                    if (requestType == "sickleave")
+                    System.out.println("Enter request form:");
+                    form = scanner.nextLine();
+                    if (form.isEmpty())
+                        form = "Empty";
+                    requestManager.submitRequest(student.getAccount().getId(),currentDate,form,requestType,student.getEid());
+                    if (Objects.equals(requestType, "sickleave"))
                         System.out.println(" Note: Request is valid for only 7 days starting today." +
                                 "If you need a longer period of absence excused please apply again after 5 days");
                     System.out.println("Submitting" + requestType + " request....\n");
@@ -190,4 +206,17 @@ public class StudentUI extends UserInterface{
         } while (choice != 2);
     }
 
+    private void displayAppointmentsHistory() throws SQLException {
+        ArrayList<Appointment> appointments = appointmentManager.getStudentAppointments(student.getAccount().getId());
+        for(Appointment appt: appointments) {
+            System.out.println(appt.toString());
+        }
+    }
+
+    private void displayRequestsHistory() throws SQLException {
+        ArrayList<Request> requests = requestManager.getStudentRequests(student.getAccount().getId());
+        for(Request rqst: requests) {
+            System.out.println(rqst.toString());
+        }
+    }
 }

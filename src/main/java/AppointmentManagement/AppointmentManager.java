@@ -18,7 +18,7 @@ public class AppointmentManager {
 
     Scanner scanner = new Scanner(System.in);
     public void scheduleAppointment(Date date,int status,Student patient,HealthCareOfficial doctor) throws SQLException {
-        retrieveAppointment();
+        retrieveAppointments();
         int appid = 0;
         if(appointments!=null) appid=appointments.size()+1;
         if(schedule.CheckAvailability(date,doctor)) {
@@ -49,17 +49,20 @@ public class AppointmentManager {
         else
             System.out.println("Appointment is not available");
     }
-    public ArrayList<Appointment> retrieveAppointment() throws SQLException {
+    public ArrayList<Appointment> retrieveAppointments() throws SQLException {
         appointments = AppointmentsTableManager.getInstance().GetRecords(null,
                 null, null, null);
         return appointments;
     }
 
-    public void getAppointments(String studentId) throws SQLException {
+    public ArrayList<Appointment> getStudentAppointments(String studentId) throws SQLException {
+        retrieveAppointments();
+        ArrayList<Appointment> stdAppts = new ArrayList<>();
         for(Appointment appointment : appointments){
             if(appointment.getStudentID().equals(studentId))
-                System.out.println(appointment);
+                stdAppts.add(appointment);
         }
+        return stdAppts;
     }
 
     public int checkAppointmentStatus(int aid){

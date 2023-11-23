@@ -9,7 +9,7 @@ public class PrescriptionRefillRequest extends Request{
         super(resultSet);
     }
 
-    public PrescriptionRefillRequest(int id , String studentId, Date date, String form, String type, String studentEid){
-        super(id,studentId, date, form, type,studentEid);
+    public PrescriptionRefillRequest(int id, String studentId, Date date, String form, String type, int status, String studentEid){
+        super(id,studentId, date, form, type, status, studentEid);
     }
 }
