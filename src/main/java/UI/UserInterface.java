@@ -72,7 +72,11 @@ public class UserInterface {
         }
     }
     public void displayEmergencyServices(){
+<<<<<<< HEAD
         System.out.println("Welcome to the Emergency Services Portal\n\nFor further help, please call 0543920023.\n");
+=======
+        System.out.println("Welcome to the Emergency Services Portal\n\nFor further help, please call 05439920023.\n");
+>>>>>>> 06693204a448b5b42d9a2f3eef7db6c81d9c3cef
         System.out.println("\n\nPlease wait for the next feature update. stay tuned folks...");
     }
 

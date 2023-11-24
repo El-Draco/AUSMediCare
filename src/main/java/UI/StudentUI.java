@@ -234,6 +234,8 @@ public class StudentUI extends UserInterface {
                     if (Objects.equals(requestType, "sickleave"))
                         System.out.println(" Note: Request is valid for only 7 days starting today.\n" +
                                 "If you need a longer period of absence excused please apply again\nafter 5 days");
+                        System.out.println(" Note: Request is valid for only 7 days starting today." +
+                                "If you need a longer period of absence excused please apply again after 5 days");
                     System.out.println("Submitting " + requestType + " request....\n");
                     System.out.println("Request submitted succesfully.\n");
                     break;
